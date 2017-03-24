@@ -1,12 +1,13 @@
-﻿using System.Linq;
+﻿using System;
+using System.Globalization;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-
 using UI.Models;
 
 namespace UI.Controllers
@@ -57,7 +58,7 @@ namespace UI.Controllers
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
-            return this.View();
+            return View();
         }
 
         //
@@ -78,11 +79,11 @@ namespace UI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return this.View("Lockout");
+                    return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
@@ -98,7 +99,7 @@ namespace UI.Controllers
             // Require that the user has already logged in via username/password or external login
             if (!await SignInManager.HasBeenVerifiedAsync())
             {
-                return this.View("Error");
+                return View("Error");
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -123,9 +124,9 @@ namespace UI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(model.ReturnUrl);
+                    return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
-                    return this.View("Lockout");
+                    return View("Lockout");
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid code.");
@@ -138,7 +139,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return this.View();
+            return View();
         }
 
         //
@@ -162,9 +163,9 @@ namespace UI.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return this.RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Home");
                 }
-                this.AddErrors(result);
+                AddErrors(result);
             }
 
             // If we got this far, something failed, redisplay form
@@ -178,10 +179,10 @@ namespace UI.Controllers
         {
             if (userId == null || code == null)
             {
-                return this.View("Error");
+                return View("Error");
             }
             var result = await UserManager.ConfirmEmailAsync(userId, code);
-            return this.View(result.Succeeded ? "ConfirmEmail" : "Error");
+            return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
         //
@@ -189,7 +190,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPassword()
         {
-            return this.View();
+            return View();
         }
 
         //
@@ -205,7 +206,7 @@ namespace UI.Controllers
                 if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return this.View("ForgotPasswordConfirmation");
+                    return View("ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -225,7 +226,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
         {
-            return this.View();
+            return View();
         }
 
         //
@@ -233,7 +234,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
-            return code == null ? this.View("Error") : this.View();
+            return code == null ? View("Error") : View();
         }
 
         //
@@ -251,15 +252,15 @@ namespace UI.Controllers
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return this.RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
             var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return this.RedirectToAction("ResetPasswordConfirmation", "Account");
+                return RedirectToAction("ResetPasswordConfirmation", "Account");
             }
-            this.AddErrors(result);
-            return this.View();
+            AddErrors(result);
+            return View();
         }
 
         //
@@ -267,7 +268,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult ResetPasswordConfirmation()
         {
-            return this.View();
+            return View();
         }
 
         //
@@ -289,7 +290,7 @@ namespace UI.Controllers
             var userId = await SignInManager.GetVerifiedUserIdAsync();
             if (userId == null)
             {
-                return this.View("Error");
+                return View("Error");
             }
             var userFactors = await UserManager.GetValidTwoFactorProvidersAsync(userId);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
@@ -305,15 +306,15 @@ namespace UI.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.View();
+                return View();
             }
 
             // Generate the token and send it
             if (!await SignInManager.SendTwoFactorCodeAsync(model.SelectedProvider))
             {
-                return this.View("Error");
+                return View("Error");
             }
-            return this.RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
+            return RedirectToAction("VerifyCode", new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
 
         //
@@ -324,7 +325,7 @@ namespace UI.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return this.RedirectToAction("Login");
+                return RedirectToAction("Login");
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -332,11 +333,11 @@ namespace UI.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return this.RedirectToLocal(returnUrl);
+                    return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
-                    return this.View("Lockout");
+                    return View("Lockout");
                 case SignInStatus.RequiresVerification:
-                    return this.RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
@@ -355,7 +356,7 @@ namespace UI.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return this.RedirectToAction("Index", "Manage");
+                return RedirectToAction("Index", "Manage");
             }
 
             if (ModelState.IsValid)
@@ -364,7 +365,7 @@ namespace UI.Controllers
                 var info = await AuthenticationManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    return this.View("ExternalLoginFailure");
+                    return View("ExternalLoginFailure");
                 }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user);
@@ -374,10 +375,10 @@ namespace UI.Controllers
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return this.RedirectToLocal(returnUrl);
+                        return RedirectToLocal(returnUrl);
                     }
                 }
-                this.AddErrors(result);
+                AddErrors(result);
             }
 
             ViewBag.ReturnUrl = returnUrl;
@@ -391,7 +392,7 @@ namespace UI.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return this.RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         //
@@ -399,7 +400,7 @@ namespace UI.Controllers
         [AllowAnonymous]
         public ActionResult ExternalLoginFailure()
         {
-            return this.View();
+            return View();
         }
 
         protected override void Dispose(bool disposing)
@@ -446,9 +447,9 @@ namespace UI.Controllers
         {
             if (Url.IsLocalUrl(returnUrl))
             {
-                return this.Redirect(returnUrl);
+                return Redirect(returnUrl);
             }
-            return this.RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

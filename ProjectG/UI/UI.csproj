@@ -179,7 +179,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="**\*.cs" Exclude="global.asax.cs;obj\**\*.cs;bin\**\*.cs;precompiledOutput\**\*.cs;" />
+    <Compile Include="Resources\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="**\*.cs" Exclude="global.asax.cs;obj\**\*.cs;bin\**\*.cs;precompiledOutput\**\*.cs;Resources\**\*.cs;" />
+    <Compile Include="Resources\Resource.ru.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.ru.resx</DependentUpon>
+    </Compile>
     <Content Include="**\*.js" Exclude="obj\**\*.js;bin\**\*.js;precompiledOutput\**\*.js;" />
     <Content Include="**\*.css" Exclude="obj\**\*.cs;bin\**\*.css;precompiledOutput\**\*.css;" />
     <Content Include="**\*.cshtml" Exclude="obj\**\*.cshtml;bin\**\*.cshtml;precompiledOutput\**\*.cshtml;" />
@@ -216,6 +226,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\jquery-3.1.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Resource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Resource.ru.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

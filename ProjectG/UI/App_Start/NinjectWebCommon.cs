@@ -12,6 +12,9 @@ using UI.Infrastructure;
 
 namespace UI
 {
+  /// <summary>
+  /// Ninject dependency resolver registrar class.
+  /// </summary>
   public static class NinjectWebCommon
   {
     private static readonly Bootstrapper Bootstrapper = new Bootstrapper();

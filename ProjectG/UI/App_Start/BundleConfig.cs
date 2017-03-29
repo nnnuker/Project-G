@@ -20,7 +20,16 @@ namespace UI
 
       bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js",
-                "~/Scripts/respond.js",
+                "~/Scripts/respond.js"));
+
+      bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                "~/Scripts/angular.min.js",
+                "~/Scripts/layout.js",
+                "~/Scripts/Controllers/FilterPanelController.js",
+                "~/Scripts/Controllers/RightPanelController.js"));
+
+      bundles.Add(new ScriptBundle("~/bundles/siteScripts").Include(
+                "~/Scripts/layout.js",
                 "~/Scripts/bundle.js"));
 
       bundles.Add(new StyleBundle("~/Content/css").Include(

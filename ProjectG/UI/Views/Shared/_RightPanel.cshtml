@@ -1,0 +1,40 @@
+﻿<div class="nav-portals" ng-controller="RightPanelController" ng-class="{ 'active' : checked}">
+  <div class="nav-portals__toggler" ng-click="checked = !checked" title="Меню проекта" data-tooltip="simple">
+    <span class="glyph glyphicon-th" ng-class="{'hide' : checked}"></span>
+    <span class="glyph glyphicon-remove" ng-class="{'hide' : !checked}"></span>
+  </div>
+  <div class="nav-portals__dropdown">
+    <div class="nav-portals__columns">
+      <div class="nav-portals__column">
+        <div class="nav-portals__title nav-portals__title_underline">Здесь может быть ваше название</div>
+        <ul class="nav-portals__list">
+          <li>
+            <a href="#">Добавлять li, если надо</a>
+          </li>
+        </ul>
+      </div>
+      <div class="nav-portals__column">
+        <div class="nav-portals__title nav-portals__title_underline">Здесь может быть ваше название</div>
+        <ul class="nav-portals__list">
+          <li>
+            <a href="#" target="_blank">Добавлять li, если надо</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="nav-portals__separator"></div>
+    <div class="nav-portals__title">Здесь может быть ваше название</div>
+    <div class="portal__links">
+      <a class="portal-link" href="#" target="_blank" data-tooltip="simple" title="Информационный портал для бухгалтера">
+        <div class="portal-link__pic portal-link__pic_buh"></div>
+        <div class="portal-link__title">Бухгалтер.by</div>
+      </a>
+    </div>
+    <div class="nav-portals__separator"></div>
+    <a href="#" class="social-link social-link_ok" target="_blank"><i class="mdi mdi-odnoklassniki"></i></a>
+    <a href="#" class="social-link social-link_vk" target="_blank"><i class="mdi mdi-vk"></i></a>
+    <a href="#" class="social-link social-link_fb" target="_blank"><i class="mdi mdi-facebook"></i></a>
+    <a href="#" class="social-link social-link_tt" target="_blank"><i class="mdi mdi-twitter"></i></a>
+  </div>
+
+</div>

@@ -1,0 +1,99 @@
+﻿<div id="panel-right" class="panel-right show panel-right_top-panel" ng-controller="FilterPanelController" ng-class="{'panel-right_min' : !active}">
+  <div class="tabpanel-right">
+    <ul class="tabpanel-right__list" ng-click="active = !active">
+      <li class="tabpanel-right__toggler" data-tooltip="right-panel-toggler" title="Свернуть панель">
+        <span class="tabpanel-right__toggler__icon glyph glyphicon-arrow-left" ng-class="{'tabpanel-right__toggler__icon__close' : !active}"></span>
+      </li>
+      <li class="tabpanel-right__item tabpanel-right__item_filters active">
+        <a href="#" class="tabpanel-right__link" data-index="0" data-tooltip="right-panel-button" title="Фильтры">
+          <span class="tabpanel-right__icon glyph glyphicon-filter active"></span>
+        </a>
+      </li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active">
+        <div class="list-sorting">
+          <div class="list-sorting__head">
+            <span class="glyph glyphicon-sort list-sorting__icon"></span>
+            <p class="panel-right__subtitle list-sorting__title">Сортировка списка</p>
+          </div>
+          <div class="nr-select">
+            <div class="nr-select__container">
+              <div class="nr-select__controls clearfix">
+                <div class="nr-select__ctrl-open ctrl">
+                  <div class="glyph glyphicon-option-vertical"></div>
+                </div>
+              </div>
+              <div class="nr-select__input-wrapper">
+                <input type="text" value="Какая-то" class="nr-select__input" readonly="" ng-click="toggleSortingDropdown()">
+              </div>
+            </div>
+            <div class="nr-select__dropdown" ng-show="sortingDropdownActive">
+              <div class="nr-select__option"><span>Какая-то</span></div>
+              <div class="nr-select__option"><span>По убыванию даты↓</span></div>
+              <div class="nr-select__option"><span>По возрастанию даты↑</span></div>
+            </div>
+          </div>
+        </div>
+        <div class="panel-right__separator"></div>
+        <div class="list-filter">
+          <div class="list-filter__head">
+            <p class="panel-right__subtitle list-filter__title">Фильтр списка</p>
+            <span class="list-filter__icon glyph glyphicon-tasks"></span>
+            <p class="list-filter__count">Количество найденных документов</p>
+          </div>
+          <div class="list-filter__block">
+            <div class="list-filter__field disabled">
+              <label class="list-filter__label disabled">Выделить все в категории</label>
+              <span class="list-filter__checkbox disabled rc-checkbox">
+                <span class="rc-checkbox-inner"></span>
+                <input type="checkbox" class="rc-checkbox-input" value="on">
+              </span><span class="list-filter__item-count"></span>
+            </div>
+            <div class="list-filter__subcategory">
+              <div class="list-filter__field disabled">
+                <label class="list-filter__label disabled">Здесь может быть ваш пункт</label>
+                <span class="list-filter__checkbox disabled rc-checkbox">
+                  <span class="rc-checkbox-inner"></span>
+                  <input type="checkbox" class="rc-checkbox-input" value="on">
+                </span><span class="list-filter__item-count"></span>
+              </div>
+            </div>
+          </div>
+          <div class="list-filter__block">
+            <div class="list-filter__field">
+              <label class="list-filter__label">Пример 2</label>
+              <span class="list-filter__checkbox rc-checkbox rc-checkbox-checked rc-checkbox-checked-1">
+                <span class="rc-checkbox-inner"></span><input type="checkbox" class="rc-checkbox-input" value="on">
+              </span><span class="list-filter__item-count"></span>
+            </div>
+            <div class="list-filter__subcategory">
+              <div class="list-filter__field">
+                <label class="list-filter__label">Статьи</label>
+                <span class="list-filter__checkbox rc-checkbox rc-checkbox-checked rc-checkbox-checked-1">
+                  <span class="rc-checkbox-inner"></span><input type="checkbox" class="rc-checkbox-input" value="on">
+                </span><span class="list-filter__item-count">39</span>
+              </div>
+            </div>
+          </div>
+          <div class="list-filter__block">
+            <div class="list-filter__field disabled">
+              <label class="list-filter__label disabled">Ещё так</label>
+              <span class="list-filter__checkbox disabled rc-checkbox">
+                <span class="rc-checkbox-inner"></span>
+                <input type="checkbox" class="rc-checkbox-input" value="on">
+              </span><span class="list-filter__item-count"></span>
+            </div>
+            <div class="list-filter__field disabled">
+              <label class="list-filter__label disabled">И вот так</label>
+              <span class="list-filter__checkbox disabled rc-checkbox">
+                <span class="rc-checkbox-inner"></span>
+                <input type="checkbox" class="rc-checkbox-input" value="on">
+              </span><span class="list-filter__item-count"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

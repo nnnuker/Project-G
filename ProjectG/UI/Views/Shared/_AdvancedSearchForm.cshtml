@@ -1,0 +1,419 @@
+﻿<form class="search-advanced" id="complex-search" name="complex-search" ng-controller="AdvancedSearchFormController" ng-hide="!advancedSearchActive">
+  <div class="search-advanced__wrapper">
+    <div class="search-advanced__container" style="width: 674px;">
+      <div class="search-advanced__tags">
+        <span class="tag-group">
+          <span class="tag-group__label">Параметры поиска:</span>
+          <div class="tag tag_disabled tag_deleted" data-id="wordSearchMode-0">
+            Искать только в названии
+            <span class="tag__delete mdi mdi-close"></span>
+          </div>
+          <div class="tag tag_disabled tag_deleted" data-id="wordSearchMode-1">Точную фразу<span class="tag__delete mdi mdi-close"></span></div>
+        </span>
+        <span class="tag-group">
+          <span class="tag-group__label">Раздел</span>
+          <div class="tag tag_disabled tag_deleted" data-id="documentCategoryList-0">
+            Вопрос — ответ
+            <span class="tag__delete mdi mdi-close"></span>
+          </div>
+        </span>
+      </div>
+      <div>
+        <div class="search-advanced__only-in-title">
+          <div>
+            <span class="rc-checkbox rc-checkbox-checked rc-checkbox-checked-1"><span class="rc-checkbox-inner"></span><input type="checkbox" class="rc-checkbox-input" value="on"></span>
+            <span class="rc-checkbox-postfix">Искать только в названии</span>
+          </div>
+        </div>
+        <div class="wrapper-inline-block">
+          <div class="">
+            <div class="nr-radio">
+              <span class="nr-radio__pic mdi js-click-checkbox mdi-radiobox-blank"></span>
+              <input type="radio" class="search-advanced__radio hide" value="0" data-index="0"><span class="nr-radio__text js-click-text">Все слова запроса</span>
+            </div>
+            <div class="nr-radio">
+              <span class="nr-radio__pic mdi js-click-checkbox mdi-radiobox-blank"></span>
+              <input type="radio" class="search-advanced__radio hide" value="1" data-index="1"><span class="nr-radio__text js-click-text">Любые из слов, введенных в запросе</span>
+            </div>
+            <div class="nr-radio">
+              <span class="nr-radio__pic mdi js-click-checkbox mdi-radiobox-marked"></span>
+              <input type="radio" class="search-advanced__radio hide" value="2" data-index="2"><span class="nr-radio__text js-click-text">Точную фразу</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-advanced__column-left">
+        <p class="search-advanced__title">Документ</p>
+        <div class="search-advanced__table">
+          <div class="search-advanced__row">
+            <div class="search-advanced__cell search-advanced__cell_label">
+              <div class="search-advanced__label search-advanced__label_first">Раздел</div>
+            </div>
+            <div class="search-advanced__cell">
+              <div class="nr-select">
+                <div class="nr-select__container">
+                  <div class="nr-select__controls clearfix">
+                    <span class="nr-select__show-tags"><b>Выбрано</b>1</span><div class="nr-select__ctrl-clear ctrl">
+                      <div class="mdi mdi-close"></div>
+                    </div>
+                    <div class="nr-select__ctrl-open ctrl">
+                      <div class="mdi mdi-dots-vertical"></div>
+                    </div>
+                  </div>
+                  <div class="nr-select__input-wrapper">
+                    <input type="text" placeholder="Выберите раздел" value="" class="nr-select__input">
+                  </div>
+                </div>
+                <div class="nr-select__dropdown hide">
+                  <div class="nr-select__option"><span data-value="9">Корреспонденция счетов</span></div>
+                  <div class="nr-select__option"><span data-value="8">Международный акт</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-advanced__table">
+          <div class="search-advanced__row">
+            <div class="search-advanced__cell search-advanced__cell_label">
+              <div class="search-advanced__label search-advanced__label_first">Вид</div>
+            </div>
+            <div class="search-advanced__cell">
+              <div class="nr-select">
+                <div class="nr-select__container">
+                  <div class="nr-select__controls clearfix">
+                    <div class="nr-select__ctrl-clear ctrl hide">
+                      <div class="mdi mdi-close"></div>
+                    </div>
+                    <div class="nr-select__ctrl-open ctrl">
+                      <div class="mdi mdi-dots-vertical"></div>
+                    </div>
+                  </div>
+                  <div class="nr-select__input-wrapper">
+                    <input type="text" placeholder="Выберите вид" value="" class="nr-select__input">
+                  </div>
+                </div>
+                <div class="nr-select__dropdown hide">
+                  <div class="nr-select__option"><span data-value="40">Акт</span></div>
+                  <div class="nr-select__option"><span data-value="1">Алфавитно-предметный указатель</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-advanced__column-right">
+        <p class="search-advanced__title">Принятие</p>
+        <div class="search-advanced__table">
+          <div class="search-advanced__row">
+            <div class="search-advanced__cell">
+              <div class="elem-group__table">
+                <div class="elem-group__row">
+                  <div class="elem-group__cell">
+                    <div class="elem-group__table">
+                      <div class="elem-group__row">
+                        <div class="elem-group__cell elem-group__cell_label elem-group__cell_first">
+                          <div class="search-advanced__label">Номер</div>
+                        </div>
+                        <div class="elem-group__cell">
+                          <input type="text" class="elem-group__num" value="">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="elem-group__cell">
+                    <div class="elem-group__table">
+                      <div class="elem-group__row">
+                        <div class="elem-group__cell elem-group__cell_label ">
+                          <div class="search-advanced__label">от</div>
+                        </div>
+                        <div class="elem-group__cell">
+                          <div class="ui input">
+                            <div class="react-datepicker__input-container">
+                              <input type="text" class="" value="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="elem-group__cell">
+                    <div class="elem-group__table">
+                      <div class="elem-group__row">
+                        <div class="elem-group__cell elem-group__cell_label ">
+                          <div class="search-advanced__label">до</div>
+                        </div>
+                        <div class="elem-group__cell">
+                          <div class="ui input">
+                            <div class="react-datepicker__input-container">
+                              <input type="text" class="" value="">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-advanced__table">
+          <div class="search-advanced__row">
+            <div class="search-advanced__cell search-advanced__cell_label">
+              <div class="search-advanced__label search-advanced__label_first">Орган</div>
+            </div>
+            <div class="search-advanced__cell">
+              <div class="nr-select">
+                <div class="nr-select__container">
+                  <div class="nr-select__controls clearfix">
+                    <div class="nr-select__ctrl-clear ctrl hide">
+                      <div class="mdi mdi-close"></div>
+                    </div>
+                    <div class="nr-select__ctrl-open ctrl">
+                      <div class="mdi mdi-dots-vertical"></div>
+                    </div>
+                  </div>
+                  <div class="nr-select__input-wrapper">
+                    <input type="text" placeholder="Выберите орган принятия" value="" class="nr-select__input">
+                  </div>
+                </div>
+                <div class="nr-select__dropdown hide">
+                  <div class="nr-select__option"><span data-value="161">...</span></div>
+                  <div class="nr-select__option"><span data-value="162">Академия наук Беларуси</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="search-advanced__hiddenable-container hide">
+        <div class="search-advanced__table">
+          <div class="search-advanced__row">
+            <div class="search-advanced__cell search-advanced__cell_label">
+              <div class="search-advanced__label search-advanced__label_first">Рубрика</div>
+            </div>
+            <div class="search-advanced__cell">
+              <div class="nr-select">
+                <div class="nr-select__container">
+                  <div class="nr-select__controls clearfix">
+                    <!-- react-empty: 258 -->
+                    <div class="nr-select__ctrl-clear ctrl hide">
+                      <div class="mdi mdi-close"></div>
+                    </div>
+                    <div class="nr-select__ctrl-open ctrl">
+                      <div class="mdi mdi-dots-vertical"></div>
+                    </div>
+                  </div>
+                  <div class="nr-select__input-wrapper">
+                    <input type="text" placeholder="Выберите рубрику" value="" class="nr-select__input">
+                  </div>
+                </div>
+                <div class="nr-select__dropdown hide">
+                  <div class="nr-select__option"><span data-value="5366">01.02.01.01 Общие положения о правах, свободах и обязанностях человека и гражданина</span></div>
+                  <div class="nr-select__option"><span data-value="5367">01.02.01.02 Гражданские и политические права, свободы и обязанности</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="wrapper-inline-block">
+          <div class="search-advanced__table">
+            <div class="search-advanced__row">
+              <div class="search-advanced__cell search-advanced__cell_label">
+                <div class="search-advanced__label search-advanced__label_first">Статус</div>
+              </div>
+              <div class="search-advanced__cell">
+                <div class="search-advanced__radio-wrapper">
+                  <div class="">
+                    <div class="nr-radio"><span class="nr-radio__pic mdi js-click-checkbox mdi-radiobox-marked"></span><input type="radio" class="search-advanced__radio hide" value="3" data-index="0"><span class="nr-radio__text js-click-text">Любой</span></div>
+                    <div class="nr-radio"><span class="nr-radio__pic mdi js-click-checkbox mdi-radiobox-blank"></span><input type="radio" class="search-advanced__radio hide" value="1" data-index="1"><span class="nr-radio__text js-click-text">Действует</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clear"></div>
+        <div class="search-advanced__column-left">
+          <p class="search-advanced__title">Опубликование</p>
+          <div class="search-advanced__table">
+            <div class="search-advanced__row">
+              <div class="search-advanced__cell search-advanced__cell_label">
+                <div class="search-advanced__label search-advanced__label_first">Источник</div>
+              </div>
+              <div class="search-advanced__cell">
+                <div class="nr-select">
+                  <div class="nr-select__container">
+                    <div class="nr-select__controls clearfix">
+                      <!-- react-empty: 302 -->
+                      <div class="nr-select__ctrl-clear ctrl hide">
+                        <div class="mdi mdi-close"></div>
+                      </div>
+                      <div class="nr-select__ctrl-open ctrl">
+                        <div class="mdi mdi-dots-vertical"></div>
+                      </div>
+                    </div>
+                    <div class="nr-select__input-wrapper">
+                      <input type="text" placeholder="Выберите источник опубликования" value="" class="nr-select__input">
+                    </div>
+                  </div>
+                  <div class="nr-select__dropdown hide">
+                    <div class="nr-select__option"><span data-value="1">«Банковский вестник»</span></div>
+                    <div class="nr-select__option"><span data-value="115">«Лiдская газета»</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="search-advanced__table">
+            <div class="search-advanced__row">
+              <div class="search-advanced__cell">
+                <div class="elem-group__table">
+                  <div class="elem-group__row">
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label elem-group__cell_first">
+                            <div class="search-advanced__label">от</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label ">
+                            <div class="search-advanced__label">до</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="search-advanced__title">Действовал</p>
+          <div class="search-advanced__table">
+            <div class="search-advanced__row">
+              <div class="search-advanced__cell">
+                <div class="elem-group__table">
+                  <div class="elem-group__row">
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label elem-group__cell_first">
+                            <div class="search-advanced__label">от</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label ">
+                            <div class="search-advanced__label">до</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-advanced__column-right">
+          <p class="search-advanced__title">Регистрация в НРПА</p>
+          <div class="search-advanced__table">
+            <div class="search-advanced__row">
+              <div class="search-advanced__cell">
+                <div class="elem-group__table">
+                  <div class="elem-group__row">
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label elem-group__cell_first">
+                            <div class="search-advanced__label">Номер</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <input type="text" class="elem-group__num" value="">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label ">
+                            <div class="search-advanced__label">от</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="elem-group__cell">
+                      <div class="elem-group__table">
+                        <div class="elem-group__row">
+                          <div class="elem-group__cell elem-group__cell_label ">
+                            <div class="search-advanced__label">до</div>
+                          </div>
+                          <div class="elem-group__cell">
+                            <div class="ui input">
+                              <div class="react-datepicker__input-container">
+                                <input type="text" class="" value="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="search-advanced__control-more-container">
+      <div class="search-advanced__control-more ctrl ctrl__more"><span class="js-form-button">Больше параметров</span><span class="mdi mdi-chevron-down"></span></div>
+    </div>
+  </div>
+</form>

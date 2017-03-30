@@ -26,8 +26,12 @@ namespace UI
                 "~/Scripts/Angular/angular.min.js",
                 "~/Scripts/layout.js",
                 "~/Scripts/Controllers/FilterPanelController.js",
-                "~/Scripts/Controllers/RightPanelController.js"));
-
+                "~/Scripts/Controllers/RightPanelController.js",
+                "~/Scripts/Controllers/AdvancedSearchFormController.js",
+                "~/Scripts/Controllers/BaseController.js",
+                "~/Scripts/Controllers/LoginPanelController.js",
+                "~/Scripts/Controllers/LeftPanelController.js"));
+      
       bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/Site.css",

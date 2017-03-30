@@ -1,3 +1,40 @@
 ﻿@{
     ViewBag.Title = Resources.Resource.ApplicationTitle;
 }
+
+<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min">
+  <div>
+    <div class="panel-top show" id="panel-top">
+      <div class="panel-top__text">
+        Результаты поиска: количество найденных записей
+      </div>
+    </div>
+  </div>
+  @Html.Partial("_FilterPanel")
+  <div class="content-container">
+    <div class="content">
+      <div class="content__static scroll-wrapper">
+        <ul class="document-list">
+          <li class="document-list__item document-list__item_3">
+            <a class="document-list__link" href="#">
+              <i class="document-list__icon icon-doc icon-doc_3"></i><i class="document-list__status document-list__status_actual"></i>
+              <p class="document-list__title">Статья</p>
+              <p class="document-list__description">Какое-то описание статьи</p>
+              <p class="document-list__redaction"><span><span>Дата публикации</span></span></p>
+              <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite"><span class="mdi mdi-star-outline"></span></button>
+            </a>
+          </li>
+          <li class="document-list__item document-list__item_1">
+            <a class="document-list__link" href="#">
+              <i class="document-list__icon icon-doc icon-doc_1"></i><i class="document-list__status document-list__status_old"></i>
+              <p class="document-list__title">Статья 2</p>
+              <p class="document-list__description">Какое-то описание статьи</p>
+              <p class="document-list__redaction"><span>Дата публикации <i>утратил силу :)</i></span></p>
+              <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite"><span class="mdi mdi-star-outline"></span></button>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+﻿<div class="nav-main__dropdown scroll-wrapper touch" ng-class="{'hide' : !navigatorActive}">
+  <div class="list-find">
+    <div class="favorites__header-panel">
+      <div class="favorites__select-panel">
+        <button class="favorites__select-cancel navigator__check_all" title="Выделить всё" data-tooltip="simple">
+          <i class="mdi mdi-check-all"></i>Выделить всё
+        </button>
+        <button class="favorites__select-cancel navigator__select-cancel hide" title="Отменить выделение" data-tooltip="simple">
+          <i class="mdi mdi-close-circle"></i>
+        </button>
+      </div>
+    </div>
+    <div class="list-find__search-block">
+      <i class="list-find__magnify mdi mdi-magnify"></i><i class="mdi mdi-close list-find__query-clear ctrl"></i><input type="text" placeholder="Введите название темы для быстрого поиска" class="list-find__query">
+    </div>
+    <ul class="list-find__list">
+      <li class="list-find__item item-parent">
+        <div class=""><span class="rc-checkbox"><span class="rc-checkbox-inner"></span></span></div>
+        <span class="list-find__item-title-container">
+          <span class="list-find__item-title uppercase">Что-то</span> &nbsp;
+          <span class="link-icon" title="Открыть в новом окне" data-tooltip="simple"><i class="mdi ctrl mdi-launch"></i></span>
+        </span>
+        <i class="list-find__chevron mdi ctrl mdi-chevron-down"></i>
+      </li>
+      <li class="list-find__item item-parent">
+        <div class=""><span class="rc-checkbox"><span class="rc-checkbox-inner"></span></span></div>
+        <span class="list-find__item-title-container">
+          <span class="list-find__item-title uppercase">Ещё что-то</span> &nbsp;
+          <span class="link-icon" title="Открыть в новом окне" data-tooltip="simple"><i class="mdi ctrl mdi-launch"></i></span>
+        </span>
+        <i class="list-find__chevron mdi ctrl mdi-chevron-down"></i>
+      </li>
+    </ul>
+  </div>
+</div>

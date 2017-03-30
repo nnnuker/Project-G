@@ -6,6 +6,8 @@
   line-height: 1;
   font-size: inherit;
   -webkit-font-smoothing: antialiased;
+  -ms-transform: translate(0, 0);
+  -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
@@ -16,4 +18,25 @@
   left: 50%;
   margin-left: -.5em;
   margin-top: -.5em;
+}
+
+.tabpanel-right__toggler__icon__close {
+  -ms-transform: rotate(0) !important;
+  -webkit-transform: rotate(0) !important;
+  transform: rotate(0) !important;
+}
+
+.logo-text {
+  font-size: 0.7em;
+  text-align: center;
+}
+
+.logo_header:hover {
+  text-decoration: none;
+}
+
+@media screen and (max-width: 71.66666667rem), screen and (max-width: 44.46666667rem) {
+  .logo-text {
+    display: none;
+  }
 }

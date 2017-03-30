@@ -1,0 +1,46 @@
+﻿<div id="panel-left" class="panel-left" ng-controller="LeftPanelController">
+  <nav>
+    <ul class="nav-main">
+      <li class="nav-main__item nav-main__item_navigator" data-tab="navigator" ng-class="{'active' : navigatorActive}">
+        <span class="nav-main__item__link" title="Навигатор" data-tooltip="simple" ng-click="toggleNavigatorActive()">
+          <span class="nav-main__icon glyph glyphicon-list-alt"></span><span class="nav-main__title">Навигатор</span>
+        </span>
+        @Html.Partial("_Navigator")
+      </li>
+      <li class="nav-main__item nav-main__item_rubric" data-tab="rubrics">
+        <span class="nav-main__item__link" title="Тематические рубрики документов" data-tooltip="simple">
+          <span class="nav-main__icon nri nri-rubric"></span><span class="nav-main__title">Рубрики</span>
+        </span>
+        @Html.Partial("_Rubrics")
+      </li>
+      <li class="nav-main__item nav-main__item_codex" data-tab="codex">
+        <span class="nav-main__item__link" title="Кодексы" data-tooltip="simple">
+          <span class="nav-main__icon nri nri-codex"></span><span class="nav-main__title">Ещё раздел</span>
+        </span>
+        @Html.Partial("_Codices")
+      </li>
+      <li class="nav-main__item nav-main__item_reference" data-tab="reference">
+        <span class="nav-main__item__link" title="Справочная информация" data-tooltip="simple">
+          <span class="nav-main__icon nri nri-reference"></span><span class="nav-main__title">Справочная</span>
+        </span>
+        @Html.Partial("_References")
+      </li>
+      <li class="nav-main__item nav-main__item_favourites" data-tab="favorites">
+        <span class="nav-main__item__link" title="Избранные документы" data-tooltip="simple">
+          <span class="nav-main__icon nri nri-favourites"></span>
+          <span class="nav-main__title">Избранное</span>
+          <span class="nav-main__count hide">0</span>
+        </span>
+        @Html.Partial("_Favourites")
+      </li>
+    </ul>
+  </nav>
+  <ul class="nav-support">
+    <li class="nav-support__item nav-support__item_faq" data-tab="help">
+      <span class="nav-support__link" title="Руководство пользователя" data-tooltip="simple">
+        <i class="nav-support__icon glyph glyphicon-question-sign"></i>
+        <span class="nav-support__text">Помощь</span>
+      </span>
+    </li>
+  </ul>
+</div>

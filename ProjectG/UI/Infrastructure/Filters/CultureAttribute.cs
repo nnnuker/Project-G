@@ -19,7 +19,7 @@ namespace UI.Infrastructure.Filters
     /// </summary>
     public CultureAttribute()
     {
-      _defaultCulture = "en";
+      _defaultCulture = "ru";
     }
 
     /// <summary>

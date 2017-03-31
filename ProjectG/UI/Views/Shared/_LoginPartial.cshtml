@@ -16,33 +16,37 @@
 else
 {
   <div class="header__container-profile header__container-profile_login" id="user-menu" ng-controller="LoginPanelController">
-    <div class="profile-widget" @*href="#"*@ tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="loginPanelActive = !loginPanelActive">
+    <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="loginPanelActive = !loginPanelActive">
       <div class="profile-widget__container-login">
         <i class="profile-widget__login-icon glyph glyphicon-lock" ng-class="{'active' : loginPanelActive}"></i>
-        <div class="profile-widget__login-text">Вход в систему</div>
+        <div class="profile-widget__login-text">@Resources.Resource.LogInTitle</div>
       </div>
     </div>
     <div class="profile-widget__dropdown">
       <div class="auth auth_popup">
         <form class="auth__form">
           <div class="form-cell">
-            <input type="text" id="email" name="email" placeholder="Электронная почта" class="auth__input-text">
-            <ul class="f-error hide"></ul>
+            <input type="text" id="email" name="email" placeholder="@Resources.Resource.EmailTitle" class="auth__input-text">
+            <ul class="f-error hide">
+              <li class="f-error__item">@Resources.Resource.EmailError</li>
+            </ul>
           </div>
           <div class="form-cell">
             <div class="ctrl ctrl__input-show-symbols">
-              <span class="mdi mdi-eye-off"></span>
+              <span class="glyph glyphicon-eye-close"></span>
             </div>
-            <input type="password" id="password" name="password" placeholder="Пароль" class="auth__input-text auth__input-pass">
-            <ul class="f-error hide"></ul>
+            <input type="password" id="password" name="password" placeholder="@Resources.Resource.PasswordTitle" class="auth__input-text auth__input-pass">
+            <ul class="f-error hide">
+              <li class="f-error__item">@Resources.Resource.PasswordError</li>
+            </ul>
           </div>
           <div class="form-cell clearfix">
             <div class="pull-left">
               <input type="checkbox" id="auth" class="auth__remember-checkbox" value="on">
-              <label for="auth" class="auth__remember-label">Запомнить меня</label>
+              <label for="auth" class="auth__remember-label">@Resources.Resource.RememberMeTitle</label>
             </div>
             <div class="pull-right">
-              <a href="#" target="_blank" class="auth__recover-pass">Восстановить пароль</a>
+              <a href="#" target="_blank" class="auth__recover-pass">@Resources.Resource.RecoverPasswordTitle</a>
             </div>
           </div>
           <div class="form-cell">
@@ -50,7 +54,7 @@ else
           </div>
         </form>
         <div class="auth__registration">
-          <a href="#" target="_blank" class="ctrl ctrl__registration"><i class="glyph glyphicon-plus-sign"></i> Регистрация</a>
+          <a href="@Url.Action("Register", "Account")" target="_blank" class="ctrl ctrl__registration"><i class="glyph glyphicon-plus-sign"></i> @Resources.Resource.RegistrationTitle</a>
         </div>
       </div>
     </div>

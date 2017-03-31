@@ -903,6 +903,8 @@ h4,
 h5,
 h6 {
   font-weight: 700;
+  font-family: "PT Sans";
+  margin: 2.4em 0 1.0em 0;
 }
 
 a {
@@ -11397,13 +11399,13 @@ body .react-datepicker .react-datepicker-button:hover {
   padding: 0 15px;
 }
 
-.nav-portals__column:first-child {
-  padding-left: 0;
-}
+  .nav-portals__column:first-child {
+    padding-left: 0;
+  }
 
-.nav-portals__column:last-child {
-  padding-right: 0;
-}
+  .nav-portals__column:last-child {
+    padding-right: 0;
+  }
 
 .nav-portals__dropdown {
   box-sizing: border-box;

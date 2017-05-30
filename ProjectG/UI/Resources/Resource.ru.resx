@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPage" xml:space="preserve">
+    <value>Добавить страницу</value>
+  </data>
   <data name="ApplicationTitle" xml:space="preserve">
     <value>Проект Г</value>
+  </data>
+  <data name="CategoriesLink" xml:space="preserve">
+    <value>Добавить категорию</value>
   </data>
   <data name="ConfirmPasswordTitle" xml:space="preserve">
     <value>Подвердите пароль</value>
@@ -127,10 +133,19 @@
     <value>Неверный Email</value>
   </data>
   <data name="EmailTitle" xml:space="preserve">
-    <value>Email</value>
+    <value>Адрес электронной почты</value>
+  </data>
+  <data name="LoaderText" xml:space="preserve">
+    <value>Загрузка...</value>
   </data>
   <data name="LogInTitle" xml:space="preserve">
     <value>Вход в систему</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Выйти</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Личный кабинет</value>
   </data>
   <data name="PasswordError" xml:space="preserve">
     <value>Неверный пароль</value>

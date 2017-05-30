@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Routing;
 
 namespace UI
@@ -12,6 +8,18 @@ namespace UI
     public static void RegisterRoutes(RouteCollection routes)
     {
       routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+      routes.MapRoute(
+      name: "robots",
+      url: "robots.txt",
+      defaults: new { controller = "Home", action = "RobotsText" }
+      );
+
+      routes.MapRoute(
+      name: "sitemap",
+      url: "sitemap.xml",
+      defaults: new { controller = "Home", action = "SitemapXml" }
+      );
 
       routes.MapRoute(
           name: "Default",

@@ -1,22 +1,44 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
-  using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
-  {
-    @Html.AntiForgeryToken()
-
-    <ul class="nav navbar-nav navbar-right">
-      <li>
-        @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
-      </li>
-      <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
-    </ul>
-  }
+  <div class="header__container-profile header__container-profile_login" id="user-menu" ng-controller="LoginPanelController">
+    <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="toggleLoginPanel()">
+      <div class="profile-widget__container-login">
+        <i class="profile-widget__login-icon glyph glyphicon-user" ng-class="{'active' : loginPanelActive}"></i>
+        <div class="profile-widget__login-text">@User.Identity.GetUserName()</div>
+      </div>
+    </div>
+    <div class="profile-widget__dropdown">
+      <div class="auth auth_popup">
+        @using (Html.BeginForm("LogOff", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "auth__form" }))
+        {
+          @Html.AntiForgeryToken()
+          <div class="form-cell">
+            @Ajax.ActionLink(Resources.Resource.ManageAccount, "Index", "Manage", null, new AjaxOptions
+       {
+         UpdateTargetId = "mainBody",
+         InsertionMode = InsertionMode.Replace
+       }, new { @class = "auth__recover-pass", ng_click = "toggleLoginPanel()" })
+          </div>
+          <div class="form-cell">
+            @Html.ActionLink(Resources.Resource.AddPage, "AddPage", "Content", null, new { @class = "auth__recover-pass" })
+          </div>
+          <div class="form-cell">
+            @Html.ActionLink(Resources.Resource.CategoriesLink, "Categories", "Content", null, new { @class = "auth__recover-pass" })
+          </div>
+          <div class="form-cell">
+            <input type="submit" value="@Resources.Resource.LogOff" class="ctrl auth__submit">
+          </div>
+        }
+      </div>
+    </div>
+  </div>
 }
 else
 {
   <div class="header__container-profile header__container-profile_login" id="user-menu" ng-controller="LoginPanelController">
-    <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="loginPanelActive = !loginPanelActive">
+    <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="toggleLoginPanel()">
       <div class="profile-widget__container-login">
         <i class="profile-widget__login-icon glyph glyphicon-lock" ng-class="{'active' : loginPanelActive}"></i>
         <div class="profile-widget__login-text">@Resources.Resource.LogInTitle</div>
@@ -24,9 +46,14 @@ else
     </div>
     <div class="profile-widget__dropdown">
       <div class="auth auth_popup">
-        <form class="auth__form">
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "auth__form" }))
+        {
+          @Html.AntiForgeryToken()
+          @Html.ValidationSummary(true, "", new { @class = "f-error" })
           <div class="form-cell">
-            <input type="text" id="email" name="email" placeholder="@Resources.Resource.EmailTitle" class="auth__input-text">
+            <input type="text" id="Email" name="Email" placeholder="@Resources.Resource.EmailTitle" class="auth__input-text">
+            @*@Html.TextBoxFor(m => m.Email, new { @class = "auth__input-text", placeholder = Resources.Resource.EmailTitle })
+            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "f-error__item" })*@
             <ul class="f-error hide">
               <li class="f-error__item">@Resources.Resource.EmailError</li>
             </ul>
@@ -35,26 +62,33 @@ else
             <div class="ctrl ctrl__input-show-symbols">
               <span class="glyph glyphicon-eye-close"></span>
             </div>
-            <input type="password" id="password" name="password" placeholder="@Resources.Resource.PasswordTitle" class="auth__input-text auth__input-pass">
+            <input type="password" id="Password" name="Password" placeholder="@Resources.Resource.PasswordTitle" class="auth__input-text auth__input-pass">
+            @*@Html.TextBoxFor(m => m.Password, new { @class = "auth__input-text auth__input-pass", placeholder = Resources.Resource.PasswordTitle })
+            @Html.ValidationMessageFor(m => m.Password)*@
             <ul class="f-error hide">
               <li class="f-error__item">@Resources.Resource.PasswordError</li>
             </ul>
           </div>
           <div class="form-cell clearfix">
             <div class="pull-left">
-              <input type="checkbox" id="auth" class="auth__remember-checkbox" value="on">
-              <label for="auth" class="auth__remember-label">@Resources.Resource.RememberMeTitle</label>
+              @*@Html.CheckBoxFor(m => m.RememberMe, new { @class = "auth__remember-checkbox" })
+              @Html.LabelFor(m => m.RememberMe, new { @class = "auth__remember-label" })*@
+              <input type="checkbox" id="RememberMe" name="RememberMe" class="auth__remember-checkbox" value="true">
+                <label for="RememberMe" class="auth__remember-label">@Resources.Resource.RememberMeTitle</label>
             </div>
             <div class="pull-right">
-              <a href="#" target="_blank" class="auth__recover-pass">@Resources.Resource.RecoverPasswordTitle</a>
+              <a href="" class="auth__recover-pass">@Resources.Resource.RecoverPasswordTitle</a>
             </div>
           </div>
           <div class="form-cell">
-            <input type="submit" value="Войти" class="ctrl auth__submit">
+            <input type="submit" value="@Resources.Resource.LogInTitle" class="ctrl auth__submit">
           </div>
-        </form>
+        }
         <div class="auth__registration">
-          <a href="@Url.Action("Register", "Account")" target="_blank" class="ctrl ctrl__registration"><i class="glyph glyphicon-plus-sign"></i> @Resources.Resource.RegistrationTitle</a>
+          <a class="ctrl ctrl__registration" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#mainBody"
+             href="/Account/Register?ReturnUrl=@ViewBag.ReturnUrl" ng-click="registerSubmit()">
+            <i class="glyph glyphicon-plus-sign"></i> @Resources.Resource.RegistrationTitle
+          </a>
         </div>
       </div>
     </div>

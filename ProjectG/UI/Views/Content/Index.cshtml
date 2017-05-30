@@ -1,0 +1,36 @@
+﻿@model UI.Models.PageViewModel
+
+@{
+  ViewBag.Title = Model.Title;
+}
+
+<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min" ng-controller="PagesController">
+  <div>
+    <div class="panel-top show" id="panel-top">
+      <div class="panel-top__text">
+        Результаты поиска: Найдено {{pages.length}}
+      </div>
+    </div>
+  </div>
+  @Html.Partial("_FilterPanel")
+  <div class="content-container" id="mainBody">
+    <div class="content">
+      <div class="content__static scroll-wrapper">
+        <div id="body">
+          <div id="content">
+            <div id="canvasPanel">
+              <div id="gutterPanel">
+                <div id="goTopBtn" title="К началу документа"></div>
+                <div id="bodyPanel">
+                  <div id="bodyView">
+                    @Html.Raw(Model.Page)
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

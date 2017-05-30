@@ -3,13 +3,18 @@
   ViewBag.Title = Resources.Resource.RegistrationTitle;
 }
 
-<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min">
+<div class="content-wrapper js-content-wrapper content-wrapper_panel-top content-wrapper_rp-min">
   <div class="content-container">
     <div class="content">
       <div>
-        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+        @using (Ajax.BeginForm("Register", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, new AjaxOptions
+        {
+          UpdateTargetId = "mainBody",
+          InsertionMode = InsertionMode.Replace
+        }, new { @class = "form-horizontal", role = "form" }))
         {
           @Html.AntiForgeryToken()
+          @Html.ValidationSummary(true)
           <div class="col-md-offset-2">
             <h4 class="form-header">@Resources.Resource.RegistrationSequence</h4>
           </div>
@@ -45,7 +50,3 @@
     </div>
   </div>
 </div>
-
-@section Scripts {
-  @Scripts.Render("~/bundles/jqueryval")
-}

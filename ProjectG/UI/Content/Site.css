@@ -93,3 +93,30 @@
   outline: none !important;
   cursor: pointer;
 }
+
+#gutterPanel {
+  padding: 30px 60px;
+  background-color: #ECECEC;
+}
+
+#bodyPanel {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  max-width: 68.125rem;
+  padding: 0;
+  -webkit-box-shadow: 0 0 9px rgba(0,0,0,0.25);
+  -moz-box-shadow: 0 0 9px rgba(0,0,0,0.25);
+  box-shadow: 0 0 9px rgba(0,0,0,0.25);
+}
+
+#bodyView {
+  max-width: 58.125rem;
+  padding-top: 3.75rem;
+  padding-bottom: 3.75rem;
+  padding-left: 7%;
+  padding-right: 7%;
+}
+
+#bodyView h1{
+  margin: auto;
+}

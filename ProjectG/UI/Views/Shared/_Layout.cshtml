@@ -6,20 +6,26 @@
   <title>@ViewBag.Title</title>
   @Styles.Render("~/Content/css")
   @Scripts.Render("~/bundles/modernizr")
+  @Scripts.Render("~/bundles/tinymce")
   @Scripts.Render("~/bundles/angular")
 </head>
 <body ng-app="GApp">
   <div id="seo-container">
   </div>
-  <div id="react-container" ng-controller="BaseController">
-    <div data-reactroot="" id="main-wrapper">
+  <div ng-controller="BaseController">
+    <div>
       <header class="header" ng-class="{'header_white' : advancedSearchActive}">
         <div class="header__container-logo">
-          <a href="~/Home/Index" class="logo logo_header pull-left" tabindex="1"><i class="glyph glyphicon-education"></i><i class="logo-text">@Resources.Resource.ApplicationTitle</i></a>
+          <a href="~/Home/Index" class="logo logo_header pull-left" tabindex="1">
+            <i class="glyph glyphicon-education"></i>
+            <i class="logo-text">@Resources.Resource.ApplicationTitle</i>
+          </a>
         </div>
-        @Html.Partial("_RightPanel")
-        @Html.Partial("_LoginPartial")
-        @Html.Partial("_HeaderSearch")
+        @{
+          Html.RenderPartial("_RightPanel");
+          Html.RenderPartial("_LoginPartial");
+          Html.RenderPartial("_HeaderSearch");
+        }
       </header>
       @Html.Partial("_AdvancedSearchForm")
       @Html.Partial("_LeftPanel")
@@ -32,6 +38,7 @@
     </div>
   </div>
   @Scripts.Render("~/bundles/jquery")
+  @Scripts.Render("~/bundles/jqueryval")
   @Scripts.Render("~/bundles/bootstrap")
   @RenderSection("scripts", required: false)
 </body>

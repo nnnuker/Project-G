@@ -1,36 +1,35 @@
 ﻿@{
-    ViewBag.Title = Resources.Resource.ApplicationTitle;
+  ViewBag.Title = Resources.Resource.ApplicationTitle;
 }
 
-<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min">
+<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min" ng-controller="PagesController">
   <div>
     <div class="panel-top show" id="panel-top">
       <div class="panel-top__text">
-        Результаты поиска: количество найденных записей
+        Результаты поиска: Найдено {{pages.length}}
       </div>
     </div>
   </div>
   @Html.Partial("_FilterPanel")
-  <div class="content-container">
+  <div class="content-container" id="mainBody">
     <div class="content">
       <div class="content__static scroll-wrapper">
         <ul class="document-list">
-          <li class="document-list__item document-list__item_3">
-            <a class="document-list__link" href="#">
+          <li class="document-list__item document-list__item_3" ng-repeat="page in pages">
+            <a class="document-list__link" href="~/Content/Index/{{page.SeoUrl}}">
               <i class="document-list__icon icon-doc icon-doc_3"></i><i class="document-list__status document-list__status_actual"></i>
-              <p class="document-list__title">Статья</p>
-              <p class="document-list__description">Какое-то описание статьи</p>
-              <p class="document-list__redaction"><span><span>Дата публикации</span></span></p>
-              <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite"><span class="mdi mdi-star-outline"></span></button>
-            </a>
-          </li>
-          <li class="document-list__item document-list__item_1">
-            <a class="document-list__link" href="#">
-              <i class="document-list__icon icon-doc icon-doc_1"></i><i class="document-list__status document-list__status_old"></i>
-              <p class="document-list__title">Статья 2</p>
-              <p class="document-list__description">Какое-то описание статьи</p>
-              <p class="document-list__redaction"><span>Дата публикации <i>утратил силу :)</i></span></p>
-              <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite"><span class="mdi mdi-star-outline"></span></button>
+              <p class="document-list__title">{{page.Title}}</p>
+              <p class="document-list__description">{{page.PageDescription}}</p>
+              <p class="document-list__redaction"><span><span>{{page.Date}}</span></span></p>
+              @if (User.IsInRole("Admin"))
+              {
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="removePage($index, page)" id="removeButton-{{page.Id}}">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              }
+              <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite" ng-click="toggleFavourite($index, page)">
+                <span class="glyph glyphicon-star-empty" id="favouriteId-{{page.Id}}"></span>
+              </button>
             </a>
           </li>
         </ul>

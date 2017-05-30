@@ -13,23 +13,12 @@ using UI.Models;
 
 namespace UI.Controllers
 {
-    [Authorize]
-    [Culture]
-    public class AccountController : Controller
+  [Authorize]
+  [Culture]
+  public class AccountController : Controller
   {
     private ApplicationSignInManager _signInManager;
-
     private ApplicationUserManager _userManager;
-
-    public AccountController()
-    {
-    }
-
-    public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
-    {
-      this.UserManager = userManager;
-      this.SignInManager = signInManager;
-    }
 
     public ApplicationSignInManager SignInManager
     {
@@ -57,11 +46,20 @@ namespace UI.Controllers
       }
     }
 
-    // GET: /Account/Login
-    [AllowAnonymous]
-    public ActionResult Login(string returnUrl)
+    #region Ctors
+    public AccountController()
     {
-      this.ViewBag.ReturnUrl = returnUrl;
+    }
+
+    public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+    {
+      this.UserManager = userManager;
+      this.SignInManager = signInManager;
+    }
+    #endregion
+
+    public ActionResult Login()
+    {
       return this.View();
     }
 
@@ -73,7 +71,7 @@ namespace UI.Controllers
     {
       if (!this.ModelState.IsValid)
       {
-        return this.View(model);
+        return this.RedirectToLocal(returnUrl);
       }
 
       // This doesn't count login failures towards account lockout
@@ -91,7 +89,7 @@ namespace UI.Controllers
         case SignInStatus.Failure:
         default:
           this.ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-          return this.View(model);
+          return this.RedirectToLocal(returnUrl);
       }
     }
 
@@ -144,16 +142,23 @@ namespace UI.Controllers
 
     // GET: /Account/Register
     [AllowAnonymous]
-    public ActionResult Register()
+    public ActionResult Register(string returnUrl)
     {
-      return this.View();
+      ViewBag.ReturnUrl = returnUrl;
+
+      if (Request.IsAjaxRequest())
+      {
+        return this.PartialView("Register");
+      }
+
+      return this.View("Register");
     }
 
     // POST: /Account/Register
     [HttpPost]
     [AllowAnonymous]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Register(RegisterViewModel model)
+    public async Task<ActionResult> Register(RegisterViewModel model, string returnUrl)
     {
       if (this.ModelState.IsValid)
       {
@@ -168,14 +173,14 @@ namespace UI.Controllers
           // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
           // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
           // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-          return this.RedirectToAction("Index", "Home");
+          return this.RedirectToLocal(returnUrl);
         }
 
         this.AddErrors(result);
       }
 
       // If we got this far, something failed, redisplay form
-      return this.View(model);
+      return this.PartialView("Register", model);
     }
 
     // GET: /Account/ConfirmEmail

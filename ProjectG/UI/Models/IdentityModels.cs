@@ -29,5 +29,7 @@ namespace UI.Models
         {
             return new ApplicationDbContext();
         }
-    }
+
+    public System.Data.Entity.DbSet<UI.Models.Categories.CategoryViewModel> CategoryViewModels { get; set; }
+  }
 }

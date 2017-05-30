@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddPage" xml:space="preserve">
+    <value>Add page</value>
+  </data>
   <data name="ApplicationTitle" xml:space="preserve">
     <value>Project Graduate</value>
+  </data>
+  <data name="CategoriesLink" xml:space="preserve">
+    <value>Add categories</value>
   </data>
   <data name="ConfirmPasswordTitle" xml:space="preserve">
     <value>Confirm password</value>
@@ -129,8 +135,17 @@
   <data name="EmailTitle" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="LoaderText" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
   <data name="LogInTitle" xml:space="preserve">
     <value>Log in</value>
+  </data>
+  <data name="LogOff" xml:space="preserve">
+    <value>Log off</value>
+  </data>
+  <data name="ManageAccount" xml:space="preserve">
+    <value>Manage account</value>
   </data>
   <data name="PasswordError" xml:space="preserve">
     <value>Incorrect password</value>

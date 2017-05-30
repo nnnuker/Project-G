@@ -184,12 +184,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="**\*.cs" Exclude="global.asax.cs;obj\**\*.cs;bin\**\*.cs;precompiledOutput\**\*.cs;Resources\**\*.cs;" />
     <Compile Include="Resources\Resource.ru.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.ru.resx</DependentUpon>
     </Compile>
+    <Compile Include="**\*.cs" Exclude="global.asax.cs;obj\**\*.cs;bin\**\*.cs;precompiledOutput\**\*.cs;Resources\**\*.cs;" />
     <Content Include="**\*.js" Exclude="obj\**\*.js;bin\**\*.js;precompiledOutput\**\*.js;" />
     <Content Include="**\*.css" Exclude="obj\**\*.cs;bin\**\*.css;precompiledOutput\**\*.css;" />
     <Content Include="**\*.cshtml" Exclude="obj\**\*.cshtml;bin\**\*.cshtml;precompiledOutput\**\*.cshtml;" />
@@ -220,12 +220,10 @@
       <Project>{A1D0597A-0615-4C59-8990-F09607DEC28D}</Project>
       <Name>BLL.Activation</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
+    <ProjectReference Include="..\BLL.UI\BLL.UI.csproj">
+      <Project>{fc530c1b-8f1c-4901-b078-56cb942c8d8e}</Project>
+      <Name>BLL.UI</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Resource.resx">

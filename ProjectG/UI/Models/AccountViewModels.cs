@@ -42,23 +42,23 @@ namespace UI.Models
     public class ForgotViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "EmailTitle")]
         public string Email { get; set; }
     }
 
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "EmailTitle")]
         [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "PasswordTitle")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "RememberMeTitle")]
         public bool RememberMe { get; set; }
     }
 
@@ -66,13 +66,13 @@ namespace UI.Models
     {
         [Required]
         [EmailAddress]
-        [Display(Name = "Email")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "EmailTitle")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(ResourceType = typeof(Resources.Resource), Name = "PasswordTitle")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]

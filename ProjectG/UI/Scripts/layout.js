@@ -1,1 +1,1 @@
-﻿var angularModule = angular.module("GApp", []);
+﻿var angularModule = angular.module("GApp", ["ui.tinymce"]);

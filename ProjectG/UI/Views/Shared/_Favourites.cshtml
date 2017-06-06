@@ -1,10 +1,10 @@
-﻿<div class="nav-main__dropdown scroll-wrapper touch hide">
+﻿<div class="nav-main__dropdown scroll-wrapper touch" ng-class="{'hide' : !favouriteActive}">
   <ul class="favorites-list disable-select">
     <div class="empty-block">
       <div class="empty-block__pic icon icon__favorites_big"></div>
-      <div class="empty-block__text">Избранное доступно только для&nbsp;авторизованных пользователей.</div>
+      <div class="empty-block__text">Избранное доступно только для авторизованных пользователей.</div>
       <div class="empty-block__text">
-        <a target="_blank" href="/user/login" class="js--user__click">Войдите </a><!-- react-text: 4600 -->в&nbsp;систему.<!-- /react-text -->
+        <a target="_blank" href="/user/login" class="js--user__click">Войдите </a>
       </div>
     </div>
   </ul>

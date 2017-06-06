@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNet.Identity
 
-@if (Request.IsAuthenticated)
+@if (User.Identity.IsAuthenticated)
 {
   <div class="header__container-profile header__container-profile_login" id="user-menu" ng-controller="LoginPanelController">
     <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="toggleLoginPanel()">
@@ -49,7 +49,6 @@ else
         @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "auth__form" }))
         {
           @Html.AntiForgeryToken()
-          @Html.ValidationSummary(true, "", new { @class = "f-error" })
           <div class="form-cell">
             <input type="text" id="Email" name="Email" placeholder="@Resources.Resource.EmailTitle" class="auth__input-text">
             @*@Html.TextBoxFor(m => m.Email, new { @class = "auth__input-text", placeholder = Resources.Resource.EmailTitle })
@@ -59,9 +58,6 @@ else
             </ul>
           </div>
           <div class="form-cell">
-            <div class="ctrl ctrl__input-show-symbols">
-              <span class="glyph glyphicon-eye-close"></span>
-            </div>
             <input type="password" id="Password" name="Password" placeholder="@Resources.Resource.PasswordTitle" class="auth__input-text auth__input-pass">
             @*@Html.TextBoxFor(m => m.Password, new { @class = "auth__input-text auth__input-pass", placeholder = Resources.Resource.PasswordTitle })
             @Html.ValidationMessageFor(m => m.Password)*@
@@ -75,9 +71,6 @@ else
               @Html.LabelFor(m => m.RememberMe, new { @class = "auth__remember-label" })*@
               <input type="checkbox" id="RememberMe" name="RememberMe" class="auth__remember-checkbox" value="true">
                 <label for="RememberMe" class="auth__remember-label">@Resources.Resource.RememberMeTitle</label>
-            </div>
-            <div class="pull-right">
-              <a href="" class="auth__recover-pass">@Resources.Resource.RecoverPasswordTitle</a>
             </div>
           </div>
           <div class="form-cell">

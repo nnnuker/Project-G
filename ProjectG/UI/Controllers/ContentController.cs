@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BLL.UI.Models;
+using BLL.UI.Services;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using UI.Infrastructure.Filters;
+using UI.Infrastructure.Mappers;
 using UI.Models;
 using UI.Models.Categories;
 
@@ -12,46 +13,26 @@ namespace UI.Controllers
   [Culture]
   public class ContentController : Controller
   {
-    private static List<CategoryViewModel> list = new List<CategoryViewModel>
-      {
-        new CategoryViewModel { Id = 0, ParentId = -1, Name = "Category 0" },
-        new CategoryViewModel { Id = 1, ParentId = 0, Name = "Category 1" },
-        new CategoryViewModel { Id = 2, ParentId = 0, Name = "Category 2" },
-        new CategoryViewModel { Id = 3, ParentId = 2, Name = "Category 3" },
-        new CategoryViewModel { Id = 4, ParentId = 3, Name = "Category 4" },
-        new CategoryViewModel { Id = 5, ParentId = 3, Name = "Category 5" },
-        new CategoryViewModel { Id = 6, ParentId = 7, Name = "Category 6" },
-        new CategoryViewModel { Id = 7, ParentId = -1, Name = "Category 7" }
-      };
+    private readonly PagesService _pagesService;
+    private readonly CategoriesService _categoriesService;
+    private readonly SeoService _seoService;
 
-    private static List<PageViewModel> pages = new List<PageViewModel>
+    public ContentController(PagesService pagesService, CategoriesService categoriesService, SeoService seoService)
     {
-      new PageViewModel(new AddPageViewModel{TextArea="<h1>Heading</h1><p>paragraph</p>", Category=4, SeoUrl="first-paragraph"})
-      {
-        Id = 0,
-        Date = DateTime.Now
-      },
-      new PageViewModel(new AddPageViewModel{TextArea="<h1>Heading2</h1><p>paragraph2</p>", Category=5, SeoUrl="second-paragraph"})
-      {
-        Id = 1,
-        Date = DateTime.Now
-      },
-      new PageViewModel(new AddPageViewModel{TextArea="<h1>Heading3</h1><p>paragraph3paragraph3paragraph3paragraph3paragraph3paragraph3 paragraph3paragraph3 paragraph3paragraph3paragraph3paragraph3paragraph3paragraph3</p>", Category=6, SeoUrl="third-paragraph"})
-      {
-        Id = 2,
-        Date = DateTime.Now
-      }
-    };
+      _pagesService = pagesService;
+      _categoriesService = categoriesService;
+      _seoService = seoService;
+    }
 
     public ActionResult Index(string id)
     {
-      var result = pages.FirstOrDefault(p => p.SeoUrl.Equals(id, StringComparison.InvariantCultureIgnoreCase));
+      var result = _pagesService.Get(id).ToViewModel();
 
       if (result != null)
       {
         ViewBag.ReturnUrl = this.Url.RouteUrl(new { controller = "Content", action = "Index", id = id });
 
-        return this.View(result);
+        return this.ResultView("Index", result);
       }
 
       return this.RedirectToLocal(ViewBag.ReturnUrl);
@@ -64,43 +45,166 @@ namespace UI.Controllers
       return this.View();
     }
 
-    public ActionResult UpdatePage(int? id)
+    [HttpPost]
+    [ValidateInput(false)]
+    public ActionResult AddPage(PageViewModel model)
+    {
+      if (_seoService.Get(model.SeoUrl) != null)
+      {
+        ModelState.AddModelError("SeoUrl", "Url is already defined");
+        return this.View(model);
+      }
+
+      ViewBag.ReturnUrl = this.Url.Action("AddPage", "Content");
+
+      var seo = _seoService.Create(new BllSeo
+      {
+        Name = model.SeoUrl
+      });
+
+      _pagesService.Create(model.ToBll(seo));
+
+      return this.View(model);
+    }
+
+    [HttpPut]
+    public ActionResult AddPage(int? id)
     {
       ViewBag.ReturnUrl = this.Url.Action("AddPage", "Content");
 
       return this.View("AddPage");
     }
 
-    [HttpPost]
-    [ValidateInput(false)]
-    public ActionResult AddPage(AddPageViewModel model)
+    [HttpDelete]
+    public ActionResult RemovePage(int? id)
     {
-      ViewBag.ReturnUrl = this.Url.Action("AddPage", "Content");
+      var delete = _pagesService.Get(id.Value);
 
-      pages.Add(new PageViewModel(model));
+      if (delete != null)
+      {
+        _pagesService.Delete(delete.Id);
+        return this.HttpResult(HttpStatusCode.OK);
+      }
 
-      return this.View();
+      return this.HttpResult(HttpStatusCode.NoContent);
     }
 
     [HttpGet]
     public JsonResult AllPages()
     {
-      return this.Json(pages.Select(p => p.GetSmartViewModel()), JsonRequestBehavior.AllowGet);
+      return this.Json(_pagesService.GetAll().Select(p => p.ToViewModel().GetSmartViewModel()), JsonRequestBehavior.AllowGet);
+    }
+
+    [HttpGet]
+    public ActionResult GetPageByCategoryId(int? id)
+    {
+      if (!id.HasValue)
+      {
+        return this.HttpResult(HttpStatusCode.NoContent);
+      }
+
+      var result = _pagesService.GetByCategory(id.Value)?.Select(c=>c.ToViewModel());
+
+      if (result == null)
+      {
+        return this.HttpResult(HttpStatusCode.NoContent);
+      }
+
+      return this.Json(result, JsonRequestBehavior.AllowGet);
+    }
+
+    #region Categories
+    [HttpGet]
+    public ActionResult Categories()
+    {
+      ViewBag.ReturnUrl = this.Url.Action("Categories", "Content");
+
+      return this.ResultView("Categories");
+    }
+
+    [HttpGet]
+    public ActionResult CategoriesByParentId(int? id)
+    {
+      if (!id.HasValue)
+      {
+        return this.HttpResult(HttpStatusCode.NoContent);
+      }
+
+      var category = _categoriesService.Get(id.Value);
+
+      if (category == null && id.Value < 2)
+      {
+        return this.HttpResult(HttpStatusCode.NoContent);
+      }
+
+      var childs = _categoriesService.GetAll().Where(c => c.ParentId == id.Value).OrderBy(m => !m.HasChildCategory).Select(c => c.ToViewModel());
+
+      return this.Json(childs, JsonRequestBehavior.AllowGet);
+    }
+
+    [HttpGet]
+    public JsonResult AllCategories()
+    {
+      return this.Json(_categoriesService.GetAll().Select(c => c.ToViewModel()), JsonRequestBehavior.AllowGet);
+    }
+
+    [HttpPost]
+    public ActionResult AddCategory(CategoryViewModel model)
+    {
+      var result = _categoriesService.Get(model.Id);
+
+      if (result == null)
+      {
+        var res = _categoriesService.Create(model.ToBll()).ToViewModel();
+
+        if (res == null)
+        {
+          return this.HttpResult(HttpStatusCode.Conflict);
+        }
+
+        return this.Json(res, JsonRequestBehavior.AllowGet);
+      }
+
+      return this.HttpResult(HttpStatusCode.OK);
     }
 
     [HttpDelete]
-    public ActionResult RemovePage(int? id)
+    public ActionResult RemoveCategory(int? id)
     {
-      var delete = pages.FirstOrDefault(d => d.Id == id.Value);
+      if (!id.HasValue)
+      {
+        return this.HttpResult(HttpStatusCode.NoContent);
+      }
+
+      var delete = _categoriesService.Get(id.Value);
 
       if (delete != null)
       {
-        pages.Remove(delete);
+        _categoriesService.Delete(delete.Id);
         return new HttpStatusCodeResult(HttpStatusCode.OK);
       }
 
-      return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+      return this.HttpResult(HttpStatusCode.NoContent);
     }
+
+    [HttpPut]
+    public ActionResult UpdateCategory(CategoryViewModel model)
+    {
+      var result = _categoriesService.Get(model.Id);
+
+      if (result != null)
+      {
+        result.Name = model.Name;
+        result.ParentId = model.ParentId;
+
+        _categoriesService.Update(result);
+
+        return new HttpStatusCodeResult(HttpStatusCode.OK);
+      }
+
+      return this.HttpResult(HttpStatusCode.NoContent);
+    }
+    #endregion
 
     private ActionResult RedirectToLocal(string returnUrl)
     {
@@ -112,65 +216,29 @@ namespace UI.Controllers
       return this.RedirectToAction("Index", "Home");
     }
 
-    #region Categories
-    [HttpGet]
-    public ActionResult Categories()
+    private ActionResult ResultView(string page)
     {
-      ViewBag.ReturnUrl = this.Url.Action("Categories", "Content");
-
-      return this.View();
-    }
-
-    [HttpGet]
-    public JsonResult AllCategories()
-    {
-      return this.Json(list, JsonRequestBehavior.AllowGet);
-    }
-
-    [HttpPost]
-    public ActionResult AddCategory(CategoryViewModel model)
-    {
-      var result = list.FirstOrDefault(d => d.Id == model.Id);
-
-      if (result == null)
+      if (Request.IsAjaxRequest())
       {
-        model.Id = list.Count;
-        list.Add(model);
-
-        return this.Json(model, JsonRequestBehavior.AllowGet);
+        return this.PartialView(page);
       }
 
-      return new HttpStatusCodeResult(HttpStatusCode.OK);
+      return this.View(page);
     }
 
-    [HttpDelete]
-    public ActionResult RemoveCategory(int? id)
+    private ActionResult ResultView(string page, object model)
     {
-      var delete = list.FirstOrDefault(d => d.Id == id.Value);
-
-      if (delete != null)
+      if (Request.IsAjaxRequest())
       {
-        list.Remove(delete);
-        return new HttpStatusCodeResult(HttpStatusCode.OK);
+        return this.PartialView(page, model);
       }
 
-      return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+      return this.View(page, model);
     }
 
-    [HttpPut]
-    public ActionResult UpdateCategory(CategoryViewModel model)
+    private ActionResult HttpResult(HttpStatusCode status)
     {
-      var result = list.FirstOrDefault(m => m.Id == model.Id);
-
-      if (result != null)
-      {
-        result.Name = model.Name;
-        result.ParentId = model.ParentId;
-        return new HttpStatusCodeResult(HttpStatusCode.OK);
-      }
-
-      return new HttpStatusCodeResult(HttpStatusCode.NotFound);
+      return new HttpStatusCodeResult(status);
     }
-    #endregion
   }
 }

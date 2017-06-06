@@ -66,6 +66,20 @@
   }
 }
 
+.rubric-list {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow-y: auto;
+}
+
+.rubric__breadcrumbs {
+  top: 0;
+  right: 0;
+  left: 0;
+}
+
 .btn {
   font-size: 0.8125rem;
   font-family: "PT Sans";

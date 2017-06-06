@@ -1125,13 +1125,6 @@ button:focus {
   cursor: default;
 }
 
-.rubric__breadcrumbs {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-}
-
 .ctrl {
   user-select: none;
   cursor: pointer;
@@ -15984,15 +15977,6 @@ input.radar__input-text {
 .radar__title {
   padding-right: 3.7rem;
   position: relative;
-}
-
-.rubric-list {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  overflow-y: auto;
 }
 
 .reference {

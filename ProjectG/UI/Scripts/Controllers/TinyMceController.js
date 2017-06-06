@@ -22,7 +22,7 @@
     var dialog,
       seoUrl = $("#SeoUrl"),
       category = $("#Category"),
-      textArea = $("#TextArea"),
+      textArea = $("#Page"),
       allFields = $([]).add(seoUrl).add(category),
       tips = $(".validateTips");
 
@@ -65,7 +65,7 @@
         .attr("name", "SeoUrl").val(seoUrl.val());
       let cat = $("<input>")
         .attr("type", "hidden")
-        .attr("name", "Category").val(category.val());
+        .attr("name", "CategoryId").val(category.val());
 
       $("#addPageForm").append($(seo));
       $("#addPageForm").append($(cat));

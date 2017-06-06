@@ -1,26 +1,27 @@
-﻿<div class="nav-main__dropdown scroll-wrapper touch hide">
+﻿<div class="nav-main__dropdown scroll-wrapper touch" ng-class="{'hide' : !rubricsActive}" ng-controller="NavigatorController">
+  <div class="list-find__search-block">
+    <i class="list-find__magnify mdi mdi-magnify"></i>
+    <i class="mdi mdi-close list-find__query-clear ctrl"></i>
+    <input type="text" placeholder="Поиск по категориям" class="list-find__query">
+  </div>
   <div class="breadcrumbs rubric__breadcrumbs">
-    <span class="breadcrumbs__item">
-      <a href="#" class="breadcrumbs__link">Рубрики</a>
-    </span>
-    <span class="breadcrumbs__item">
-      <span class="breadcrumbs__separator">→</span>
-      <a class="breadcrumbs__link" href="#">Международные дог...</a>
-    </span>
-    <span class="breadcrumbs__item">
-      <span class="breadcrumbs__separator">→</span><span>01 Общие вопросы ...</span>
+    <span class="breadcrumbs__item" ng-repeat="bread in breadCrumbs">
+      <span ng-if="$index != 0" class="breadcrumbs__separator">→</span>
+      <a ng-if="bread.HasChilds" class="breadcrumbs__link" href="#" ng-click="changedCategory(bread)">{{bread.Name | limitTo:letterLimit}}...</a>
+      <span ng-if="!bread.HasChilds">{{bread.Name | limitTo:letterLimit}}...</span>
     </span>
   </div>
-  <ul class="rubric-list" style="margin-top: 54px;">
-    <li class="rubric-list__item">
-      <a href="#">
-        <span>01.04 Межгосударственные образования, участницей которых является Республика Беларусь (создание и организация деятельности)</span>
-        <span class="rubric-list__count">3510</span>
-        <span class="rubric-list__caret mdi mdi-chevron-right"></span>
+  <ul class="rubric-list">
+    <li ng-repeat="cat in categories" ng-class="cat.HasChilds ? 'rubric-list__item' : 'rubric-list__subitem'">
+      <a href="#" ng-if="cat.HasChilds" ng-click="getByParentId(cat)">
+        <span>{{cat.Name}}</span>
+        <span class="rubric-list__count">{{cat.ChildCount}}</span>
+        <span class="rubric-list__caret glyph glyphicon-chevron-right"></span>
       </a>
-    </li>
-    <li class="rubric-list__subitem">
-      <a href="/lib/rubric/13236"><span class="rubric-list__icon mdi mdi-menu"></span><span>01.01 Договоры о дружбе и сотрудничестве, другие общеполитические вопросы</span><span class="rubric-list__count">201</span></a>
+      <a href="#" ng-if="!cat.HasChilds" ng-click="goToCategory(cat)">
+        <span class="rubric-list__icon glyph glyphicon-open-file"></span><span>{{cat.Name}}</span>
+        <span class="rubric-list__count">{{cat.ChildCount}}</span>
+      </a>
     </li>
   </ul>
 </div>

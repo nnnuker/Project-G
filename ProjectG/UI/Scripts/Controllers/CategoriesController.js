@@ -9,7 +9,7 @@
     $scope.addCategory = function () {
       if ($scope.newCategory) {
         let obj = {
-          Id : -1,
+          Id : 0,
           ParentId : $scope.newParentId,
           Name : $scope.newCategory
         };
@@ -54,7 +54,8 @@
       });
     };
 
-    function init() {
+    function init()
+    {
       categoriesService.getAll().then(function (response) {
         if (response.data.length !== 0) {
           for (var i = 0; i < response.data.length; i++) {
@@ -63,9 +64,10 @@
           }
         }
       });
-    };
+    }
 
-    function cast(item) {
+    function cast(item)
+    {
       return {
         Id: item.Id,
           ParentId: item.ParentId,

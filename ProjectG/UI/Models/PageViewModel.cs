@@ -5,29 +5,15 @@ namespace UI.Models
 {
   public class PageViewModel
   {
-    private readonly PageTitleProvider _titleProvider = new PageTitleProvider();
     private readonly PageDescriptionProvider _descriptionProvider = new PageDescriptionProvider();
 
     public int Id { get; set; }
     public string Page { get; set; }
-    public string Title { get; private set; }
+    public string Title { get; set; }
     public string SeoUrl { get; set; }
     public int CategoryId { get; set; }
     public DateTime Date { get; set; }
-
-    public PageViewModel()
-    {
-      Title = _titleProvider.GetValue(Page, "h1");
-    }
-
-    public PageViewModel(AddPageViewModel model)
-    {
-      this.Page = model.TextArea;
-      this.SeoUrl = model.SeoUrl;
-      this.CategoryId = model.Category;
-      this.Title = _titleProvider.GetValue(Page, "h1");
-    }
-
+    
     public PageSmartViewModel GetSmartViewModel()
     {
       return new PageSmartViewModel()

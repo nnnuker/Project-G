@@ -5,6 +5,11 @@
         return $http.get("/Content/AllCategories");
       },
 
+      getByParentId: function (id)
+      {
+        return $http.get("/Content/CategoriesByParentId/" + id);
+      },
+
       addItem: function (item) {
         return $http.post("/Content/AddCategory/", item);
       },

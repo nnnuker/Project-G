@@ -1,15 +1,23 @@
 ﻿angular.module("GApp")
-  .controller("BaseController", ["$scope", function ($scope) {
+  .controller("BaseController", ["$scope", function ($scope)
+  {
     $scope.advancedSearchActive = false;
-    $scope.navigatorActive = false;
     $scope.loaderActive = false;
 
-    $scope.toggleNavigatorActive = function () {
-      $scope.navigatorActive = !$scope.navigatorActive;
+    $scope.raiseChangedCategory = function (id)
+    {
+      $scope.$broadcast("changedCategory", id);
     }
 
-    $scope.toggleLoader = function () {
-      //$scope.loaderActive = !$scope.loaderActive;
+    $scope.toggleLoader = function (value)
+    {
+      if (!!value)
+      {
+        $scope.loaderActive = value;
+        return;
+      }
+
+      $scope.loaderActive = !$scope.loaderActive;
     }
   }
   ]);

@@ -179,6 +179,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\Mappers\Mappers.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,18 +192,63 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.ru.resx</DependentUpon>
     </Compile>
-    <Compile Include="**\*.cs" Exclude="global.asax.cs;obj\**\*.cs;bin\**\*.cs;precompiledOutput\**\*.cs;Resources\**\*.cs;" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContentController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LanguageController.cs" />
+    <Compile Include="Infrastructure\Filters\CultureAttribute.cs" />
+    <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Infrastructure\Providers\CustomMembershipProvider.cs" />
+    <Compile Include="Infrastructure\Providers\CustomRoleProvider.cs" />
+    <Compile Include="Models\Categories\CategoryViewModel.cs" />
+    <Compile Include="Models\PageViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="**\*.js" Exclude="obj\**\*.js;bin\**\*.js;precompiledOutput\**\*.js;" />
     <Content Include="**\*.css" Exclude="obj\**\*.cs;bin\**\*.css;precompiledOutput\**\*.css;" />
-    <Content Include="**\*.cshtml" Exclude="obj\**\*.cshtml;bin\**\*.cshtml;precompiledOutput\**\*.cshtml;" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Content\AddPage.cshtml" />
+    <Content Include="Views\Content\Categories.cshtml" />
+    <Content Include="Views\Content\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_AdvancedSearchForm.cshtml" />
+    <Content Include="Views\Shared\_ErrorPopup.cshtml" />
+    <Content Include="Views\Shared\_Favourites.cshtml" />
+    <Content Include="Views\Shared\_FavouritesPopup.cshtml" />
+    <Content Include="Views\Shared\_FilterPanel.cshtml" />
+    <Content Include="Views\Shared\_HeaderSearch.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Shared\_LeftPanel.cshtml" />
+    <Content Include="Views\Shared\_LoaderPopup.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Shared\_RightPanel.cshtml" />
+    <Content Include="Views\Shared\_Rubrics.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\SiteDatabase.mdf" />
+    <Content Include="App_Data\SiteDatabase_log.ldf">
+      <DependentUpon>SiteDatabase.mdf</DependentUpon>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -210,7 +258,7 @@
     <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Content Include="Views\Shared\_TopPanel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -223,6 +271,10 @@
     <ProjectReference Include="..\BLL.UI\BLL.UI.csproj">
       <Project>{fc530c1b-8f1c-4901-b078-56cb942c8d8e}</Project>
       <Name>BLL.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{A5C42CF0-1433-462E-821D-C49C34715EE5}</Project>
+      <Name>BLL</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

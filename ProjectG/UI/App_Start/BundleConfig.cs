@@ -42,6 +42,7 @@ namespace UI
                 "~/Scripts/Controllers/TinyMceController.js",
                 "~/Scripts/Controllers/CategoriesController.js",
                 "~/Scripts/Controllers/PagesController.js",
+                "~/Scripts/Controllers/NavigatorController.js",
                 "~/Scripts/Services/AccountService.js",
                 "~/Scripts/Services/CategoriesService.js",
                 "~/Scripts/Services/PagesService.js"));

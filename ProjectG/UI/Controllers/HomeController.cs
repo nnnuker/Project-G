@@ -1,21 +1,13 @@
-﻿using BLL.UI.SiteMap;
-using System.Text;
+﻿using System.Text;
 using System.Web.Mvc;
+using BLL.UI.SiteMap;
 using UI.Infrastructure.Filters;
 
 namespace UI.Controllers
 {
-  /// <summary>
-  /// Home controller class.
-  /// </summary>
-  /// <seealso cref="System.Web.Mvc.Controller" />
   [Culture]
   public class HomeController : Controller
   {
-    /// <summary>
-    /// Returns main page.
-    /// </summary>
-    /// <returns>Main page.</returns>
     public ActionResult Index()
     {
       ViewBag.ReturnUrl = this.Url.Action("Index", "Home");
@@ -44,6 +36,11 @@ namespace UI.Controllers
       var sitemapNodes = sitemapBuilder.GetSitemapNodes(this.Url);
       string xml = sitemapBuilder.GetSitemapDocument(sitemapNodes);
       return this.Content(xml, "text/xml", Encoding.UTF8);
+    }
+
+    public ActionResult Error()
+    {
+      return this.View("Error");
     }
   }
 }

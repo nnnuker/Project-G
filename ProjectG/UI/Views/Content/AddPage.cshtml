@@ -4,25 +4,27 @@
   ViewBag.Title = Resources.Resource.AddPage;
 }
 
-<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min" ng-controller="TinyMceController" style="z-index: 0;">
-  @Html.Partial("_TopPanel")
-  @Html.Partial("_FilterPanel")
+<div class="content-wrapper js-content-wrapper" ng-controller="TinyMceController" style="z-index: 0;">
   <div id="mainBody" class="content-container">
     <div class="content">
       <div>
         @using (Html.BeginForm("AddPage", "Content", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { id = "addPageForm" }))
         {
-          <textarea ui-tinymce="tinymceOptions" id="Page" ng-model="tinymceModel" name="Page"></textarea>
-          <button type="button" class="ui-button ui-corner-all ui-widget" id="addPageButton">Create</button>
+          <textarea ui-tinymce="tinymceOptions" id="Page" ng-model="tinymceModel" name="Page">@if (Model != null)
+          {
+            @Model.Page
+          }
+          </textarea>
+          <button type="button" class="ui-button ui-corner-all ui-widget" id="addPageButton">Создать</button>
         }
       </div>
     </div>
   </div>
   <div id="dialog-form">
-    <p class="validateTips">All form fields are required.</p>
+    <p class="validateTips">Все поля должны быть заполнены.</p>
     @Html.LabelFor(m => m.SeoUrl)
     @Html.TextBoxFor(m => m.SeoUrl, new { @class = "text ui-widget-content ui-corner-all" })
-    <label for="Category"></label>
+    <label for="Category">Выберите категорию</label>
     <select id="Category" name="Category" style="z-index:102">
       <option ng-repeat="cat in categories" value="{{cat.Id}}">{{cat.Name}}</option>
     </select>

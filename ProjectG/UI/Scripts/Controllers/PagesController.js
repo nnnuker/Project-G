@@ -1,5 +1,5 @@
 ﻿angular.module("GApp")
-  .controller("PagesController", ["$scope", "PagesService", function ($scope, pagesService)
+  .controller("PagesController", ["$scope", "PagesService", "$sce", function ($scope, pagesService, $sce)
   {
     $scope.pages = [];
 
@@ -13,19 +13,24 @@
       changedCategory(data);
     });
 
-    $scope.removePage = function (index, item)
+    $scope.$on("searchedPages", function (event, data)
     {
-      pagesService.removeItem(item.Id).then(function (response)
-      {
-        if (response && response.status === 200) {
-          $.notify("Deleted " + item.Id, { className: "success", globalPosition: "bottom right" });
-          $scope.pages.splice(index, 1);
-        }
-        else {
-          $.notify("Deletion error", { className: "error", globalPosition: "bottom right" });
-        }
-      });
-    };
+      searchedPages(data);
+    });
+
+    //$scope.removePage = function (index, item)
+    //{
+    //  pagesService.removeItem(item.Id).then(function (response)
+    //  {
+    //    if (response && response.status === 200) {
+    //      $.notify("Deleted " + item.Id, { className: "success", globalPosition: "bottom right" });
+    //      $scope.pages.splice(index, 1);
+    //    }
+    //    else {
+    //      $.notify("Deletion error", { className: "error", globalPosition: "bottom right" });
+    //    }
+    //  });
+    //};
 
     $scope.pagesCountText = function ()
     {
@@ -39,6 +44,12 @@
     {
       $scope.toggleLoader(true);
       pagesService.getAll().then(setPages);
+    }
+
+    function searchedPages(data)
+    {
+      $scope.toggleLoader(true);
+      pagesService.searchItems(data).then(setPages);
     }
 
     function changedCategory(id)
@@ -74,7 +85,7 @@
       return {
         Id: item.Id,
         CategoryId: item.CategoryId,
-        PageDescription: item.PageDescription,
+        PageDescription: $sce.trustAsHtml(item.PageDescription),
         SeoUrl: item.SeoUrl,
         Date: castDate(item.Date).toDateString(),
         Title: item.Title

@@ -84,7 +84,7 @@ namespace UI.Controllers
     {
       FormsAuthentication.SignOut();
 
-      return RedirectToAction("Index", "Home");
+      return this.RedirectToAction("Index", "Home");
     }
 
     #region Helpers

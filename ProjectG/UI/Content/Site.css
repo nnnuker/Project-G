@@ -131,6 +131,98 @@
   padding-right: 7%;
 }
 
-#bodyView h1{
-  margin: auto;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  font-family: "PT Sans";
+}
+
+.header {
+  font-size: 1rem;
+  color: #fff;
+  background-color: #006699;
+  height: 4.53333333rem;
+  padding: 0 0 0 2rem;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 4000;
+}
+
+.promo-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: #006699;
+  z-index: 2;
+  transition: all .15s ease-in-out;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+  padding: 0 320px;
+}
+
+.promo-nav__item.active {
+  border-bottom-color: #006699;
+}
+
+.search__toggler {
+  font-size: 1em;
+  color: #006699;
+  background-color: #fff;
+  height: 100%;
+  padding: 0 .53333333rem;
+  margin: 0;
+  border-left: 1px solid #e0e0e0;
+  float: right;
+  white-space: nowrap;
+  position: relative;
+  -webkit-transition: background-color .15s ease-out;
+  -moz-transition: background-color .15s ease-out;
+  -o-transition: background-color .15s ease-out;
+  transition: background-color .15s ease-out;
+  outline: 0;
+}
+
+  .search__toggler.active,
+  .search__toggler:hover {
+    color: #fff;
+    background-color: #006699;
+  }
+
+.profile-widget:hover .profile-widget__container,
+.profile-widget:hover .profile-widget__container-login {
+  background-color: #00334d;
+}
+
+
+.profile-widget:hover .profile-widget__container,
+.profile-widget:hover .profile-widget__container-login {
+  background-color: #00334d;
+}
+
+.radar__control-panel {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 3.73329rem;
+  color: #fff;
+  background-color: #00334d;
+  padding: 0 0 0 1.66666667rem;
+  z-index: 2;
+  display: none;
+}
+
+.favorites__select-panel {
+  color: #fff;
+  position: absolute;
+  background-color: #00334d;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 30;
 }

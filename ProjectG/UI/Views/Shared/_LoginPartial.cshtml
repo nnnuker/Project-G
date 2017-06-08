@@ -15,13 +15,6 @@
         {
           @Html.AntiForgeryToken()
           <div class="form-cell">
-            @Ajax.ActionLink(Resources.Resource.ManageAccount, "Index", "Manage", null, new AjaxOptions
-       {
-         UpdateTargetId = "mainBody",
-         InsertionMode = InsertionMode.Replace
-       }, new { @class = "auth__recover-pass", ng_click = "toggleLoginPanel()" })
-          </div>
-          <div class="form-cell">
             @Html.ActionLink(Resources.Resource.AddPage, "AddPage", "Content", null, new { @class = "auth__recover-pass" })
           </div>
           <div class="form-cell">
@@ -40,7 +33,7 @@ else
   <div class="header__container-profile header__container-profile_login" id="user-menu" ng-controller="LoginPanelController">
     <div class="profile-widget" tabindex="6" ng-class="{'active' : loginPanelActive}" ng-click="toggleLoginPanel()">
       <div class="profile-widget__container-login">
-        <i class="profile-widget__login-icon glyph glyphicon-lock" ng-class="{'active' : loginPanelActive}"></i>
+        <i class="profile-widget__login-icon glyph glyphicon-home" ng-class="{'active' : loginPanelActive}"></i>
         <div class="profile-widget__login-text">@Resources.Resource.LogInTitle</div>
       </div>
     </div>

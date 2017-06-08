@@ -182,12 +182,12 @@
     <Compile Include="Infrastructure\Mappers\Mappers.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
-    <Compile Include="Resources\Resource.Designer.cs">
+    <Compile Include="Models\Resources\Resource.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
-    <Compile Include="Resources\Resource.ru.Designer.cs">
+    <Compile Include="Models\Resources\Resource.ru.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.ru.resx</DependentUpon>
@@ -206,6 +206,7 @@
     <Compile Include="Infrastructure\Providers\CustomRoleProvider.cs" />
     <Compile Include="Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Models\PageViewModel.cs" />
+    <Compile Include="Models\SearchViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="**\*.js" Exclude="obj\**\*.js;bin\**\*.js;precompiledOutput\**\*.js;" />
     <Content Include="**\*.css" Exclude="obj\**\*.cs;bin\**\*.css;precompiledOutput\**\*.css;" />
@@ -278,12 +279,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\Resource.resx">
+    <EmbeddedResource Include="Models\Resources\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
-    <EmbeddedResource Include="Resources\Resource.ru.resx">
+    <EmbeddedResource Include="Models\Resources\Resource.ru.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>

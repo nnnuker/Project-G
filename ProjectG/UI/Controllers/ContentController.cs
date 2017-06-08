@@ -1,5 +1,6 @@
 ﻿using BLL.UI.Models;
 using BLL.UI.Services;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -11,6 +12,7 @@ using UI.Models.Categories;
 namespace UI.Controllers
 {
   [Culture]
+  [Authorize(Roles = "Admin")]
   public class ContentController : Controller
   {
     private readonly PagesService _pagesService;
@@ -24,6 +26,7 @@ namespace UI.Controllers
       _seoService = seoService;
     }
 
+    [AllowAnonymous]
     public ActionResult Index(string id)
     {
       var result = _pagesService.Get(id).ToViewModel();
@@ -67,35 +70,48 @@ namespace UI.Controllers
       return this.View(model);
     }
 
-    [HttpPut]
+    [HttpGet]
     public ActionResult AddPage(int? id)
     {
       ViewBag.ReturnUrl = this.Url.Action("AddPage", "Content");
 
+      if (id.HasValue)
+      {
+        var page = _pagesService.Get(id.Value);
+
+        if (page != null)
+        {
+          return this.View("AddPage", page.ToViewModel());
+        }
+      }
+
       return this.View("AddPage");
     }
 
-    [HttpDelete]
     public ActionResult RemovePage(int? id)
     {
       var delete = _pagesService.Get(id.Value);
 
       if (delete != null)
       {
+        //_seoService.Delete(delete.UrlId);
         _pagesService.Delete(delete.Id);
-        return this.HttpResult(HttpStatusCode.OK);
+
+        return this.RedirectToAction("Index", "Home");
       }
 
       return this.HttpResult(HttpStatusCode.NoContent);
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public JsonResult AllPages()
     {
       return this.Json(_pagesService.GetAll().Select(p => p.ToViewModel().GetSmartViewModel()), JsonRequestBehavior.AllowGet);
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult GetPageByCategoryId(int? id)
     {
       if (!id.HasValue)
@@ -103,7 +119,7 @@ namespace UI.Controllers
         return this.HttpResult(HttpStatusCode.NoContent);
       }
 
-      var result = _pagesService.GetByCategory(id.Value)?.Select(c=>c.ToViewModel());
+      var result = _pagesService.GetByCategory(id.Value)?.Select(c => c.ToViewModel());
 
       if (result == null)
       {
@@ -123,6 +139,7 @@ namespace UI.Controllers
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public ActionResult CategoriesByParentId(int? id)
     {
       if (!id.HasValue)
@@ -143,6 +160,7 @@ namespace UI.Controllers
     }
 
     [HttpGet]
+    [AllowAnonymous]
     public JsonResult AllCategories()
     {
       return this.Json(_categoriesService.GetAll().Select(c => c.ToViewModel()), JsonRequestBehavior.AllowGet);
@@ -205,6 +223,45 @@ namespace UI.Controllers
       return this.HttpResult(HttpStatusCode.NoContent);
     }
     #endregion
+
+    public ActionResult Search(string id)
+    {
+      var categories = _categoriesService.GetAll().Where(c => c.Name.Contains(id));
+      var pages = _pagesService.GetAll().Where(p => p.Title.Contains(id) || p.Content.Contains(id)).ToList();
+
+      foreach (var category in categories)
+      {
+        pages.AddRange(_pagesService.GetByCategory(category.Id));
+      }
+
+      pages.Distinct();
+
+      return this.Json(pages.Select(p => p.ToViewModel().GetSmartViewModel()), JsonRequestBehavior.AllowGet);
+    }
+
+    public ActionResult SearchByString(string id)
+    {
+      var result = new List<SearchViewModel>();
+
+      var categories = _categoriesService.GetAll().Where(c => c.Name.Contains(id));
+      var pages = _pagesService.GetAll().Where(p => p.Title.Contains(id) || p.Content.Contains(id)).ToList();
+
+      result.AddRange(categories.Select(c => new SearchViewModel
+      {
+        Name = c.Name,
+        Link = c.Id.ToString(),
+        IsPage = false
+      }));
+
+      result.AddRange(pages.Select(p => new SearchViewModel
+      {
+        Name = p.Title,
+        Link = this.Url.Action("Index", "Content", new { id = p.Url }),
+        IsPage = true
+      }));
+
+      return this.Json(result, JsonRequestBehavior.AllowGet);
+    }
 
     private ActionResult RedirectToLocal(string returnUrl)
     {

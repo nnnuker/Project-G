@@ -4,15 +4,8 @@
   ViewBag.Title = Model.Title;
 }
 
-<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min" ng-controller="PagesController">
-  <div>
-    <div class="panel-top show" id="panel-top">
-      <div class="panel-top__text">
-        Результаты поиска: Найдено {{pages.length}}
-      </div>
-    </div>
-  </div>
-  @Html.Partial("_FilterPanel")
+<div class="content-wrapper js-content-wrapper">
+  @*@Html.Partial("_FilterPanel")*@
   <div class="content-container" id="mainBody">
     <div class="content">
       <div class="content__static scroll-wrapper">
@@ -20,12 +13,25 @@
           <div id="content">
             <div id="canvasPanel">
               <div id="gutterPanel">
-                <div id="goTopBtn" title="К началу документа"></div>
                 <div id="bodyPanel">
+                  @if (User.IsInRole("Admin"))
+                  {
+                    <a class="close" style="margin:15px" data-dismiss="alert" aria-label="Close"
+                    id="removeButton-@Model.Id" href="@Url.RouteUrl(new { controller = "Content", action = "RemovePage", id = Model.Id })">
+                    <span aria-hidden="true">&times;</span>
+                    </a>
+                  }
                   <div id="bodyView">
                     @Html.Raw(Model.Page)
                   </div>
                 </div>
+                @if (User.IsInRole("Admin"))
+                {
+                  <a type="button" class="ui-button ui-corner-all ui-widget" style="margin:10px"
+                     href="@Url.RouteUrl(new { action="AddPage", controller="Content", id = Model.Id})" id="updateButton-@Model.Id">
+                    <span aria-hidden="true">Изменить</span>
+                  </a>
+                }
               </div>
             </div>
           </div>

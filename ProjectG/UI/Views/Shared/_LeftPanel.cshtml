@@ -3,13 +3,13 @@
     <ul class="nav-main">
       <li class="nav-main__item nav-main__item_rubric" data-tab="rubrics" ng-class="{'active' : rubricsActive}">
         <span class="nav-main__item__link" title="Выбор категорий" data-tooltip="simple" ng-click="toggleRubricsActive()">
-          <span class="nav-main__icon nri nri-rubric"></span><span class="nav-main__title">Категории</span>
+          <span class="nav-main__icon glyph glyphicon-th-list"></span><span class="nav-main__title">Категории</span>
         </span>
         @Html.Partial("_Rubrics")
       </li>
       <li class="nav-main__item nav-main__item_favourites" data-tab="favorites" ng-class="{'active' : favouriteActive}">
         <span class="nav-main__item__link" title="Избранные документы" data-tooltip="simple" ng-click="toggleFavouriteActive()">
-          <span class="nav-main__icon nri nri-favourites"></span>
+          <span class="nav-main__icon glyph glyphicon-star"></span>
           <span class="nav-main__title">Избранное</span>
           <span class="nav-main__count hide">0</span>
         </span>

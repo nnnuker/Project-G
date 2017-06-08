@@ -2,7 +2,7 @@
   ViewBag.Title = Resources.Resource.ApplicationTitle;
 }
 
-<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top content-wrapper_rp-min" ng-controller="PagesController">
+<div class="content-wrapper js-content-wrapper  content-wrapper_panel-top" ng-controller="PagesController">
   <div>
     <div class="panel-top show" id="panel-top">
       <div class="panel-top__text">
@@ -10,7 +10,7 @@
       </div>
     </div>
   </div>
-  @Html.Partial("_FilterPanel")
+  @*@Html.Partial("_FilterPanel")*@
   <div class="content-container" id="mainBody">
     <div class="content">
       <div class="content__static scroll-wrapper">
@@ -19,14 +19,8 @@
             <a class="document-list__link" href="~/Content/Index/{{page.SeoUrl}}">
               <i class="document-list__icon icon-doc icon-doc_3"></i><i class="document-list__status document-list__status_actual"></i>
               <p class="document-list__title">{{page.Title}}</p>
-              <p class="document-list__description">{{page.PageDescription}}</p>
+              <p class="document-list__description" ng-bind-html="page.PageDescription"></p>
               <p class="document-list__redaction"><span><span>{{page.Date}}</span></span></p>
-              @if (User.IsInRole("Admin"))
-              {
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="removePage($index, page)" id="removeButton-{{page.Id}}">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              }
               <button title="Добавить в избранное" data-tooltip="simple" class="ctrl document-list__favorite" ng-click="toggleFavourite($index, page)">
                 <span class="glyph glyphicon-star-empty" id="favouriteId-{{page.Id}}"></span>
               </button>

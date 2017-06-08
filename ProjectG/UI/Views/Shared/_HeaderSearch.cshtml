@@ -1,25 +1,31 @@
 ﻿<div class="header__container-search">
   <div id="search-form" class="search">
-    <button class="ctrl search__submit" tabindex="5">
-      <i class="search__submit__icon mdi mdi-magnify"></i><span class="search__submit__text">Найти</span>
+    <button class="ctrl search__submit" tabindex="5" ng-click="raiseSearchPages()">
+      <i class="search__submit__icon glyph glyphicon-ok"></i><span class="search__submit__text">Найти</span>
     </button>
-    <button class="search__toggler" tabindex="4" title="Расширенный поиск" data-tooltip="simple" ng-click="advancedSearchActive = !advancedSearchActive" ng-class="{'active' : advancedSearchActive}">
-      <i class="search__toggler__icon glyph glyphicon-list-alt"></i><span class="search__toggler__text">Параметры</span>
-    </button>
-    <span class="search__reset ctrl hide" title="Очистить поле поиска" data-tooltip="simple"><span class="mdi mdi-close"></span></span>
-    <div class="search__tag-counter hide">
-      <span class="tag" data-tooltip="simple" title="Выбрано параметров расширенного поиска"><span class="tag__text">Выбрано</span><span class="tag__num">0</span></span>
-    </div>
+    @*<button class="search__toggler" tabindex="4" title="Расширенный поиск" data-tooltip="simple" ng-click="advancedSearchActive = !advancedSearchActive" ng-class="{'active' : advancedSearchActive}">
+        <i class="search__toggler__icon glyph glyphicon-list-alt"></i><span class="search__toggler__text">Параметры</span>
+      </button>*@
+    <span class="search__reset ctrl" title="Очистить поле поиска" data-tooltip="simple" ng-class="!searchActive ? 'hide' : 'show'" 
+          ng-click="resetInput()">
+      <span class="glyph glyphicon-remove"></span>
+    </span>
+    @*<div class="search__tag-counter hide">
+        <span class="tag" data-tooltip="simple" title="Выбрано параметров расширенного поиска"><span class="tag__text">Выбрано</span><span class="tag__num">0</span></span>
+      </div>*@
     <div class="search__container">
-      <input type="text" id="search-input" class="search__string" placeholder="Искать..." value="" tabindex="2">
+      <input type="text" id="search-input" class="search__string" placeholder="Искать..." value="" tabindex="2"
+             ng-change="onChange()" ng-model="searchString">
     </div>
   </div>
-  <div id="search_results" class="search-autocomplete hide">
+  <div id="search_results" class="search-autocomplete" ng-class="!searchActive ? 'hide' : 'show'">
     <div class="rubric-suggestion-container">
       <div>
-        <a class="suggestion__item rubric-suggestion__item parent" data-rubric="0" href="#"><b>Категория</b></a>
-        <div><a class="suggestion__item rubric-suggestion__item child" data-rubric="1" href="#"><b>Категория</b> что-то нашли</a>
-        </div>
+        <a class="suggestion__item rubric-suggestion__item parent" data-rubric="0"
+           ng-repeat="res in searchResults" ng-click="goToPage(res)"><b>{{res.Name}}</b></a>
+        @*<div>
+            <a class="suggestion__item rubric-suggestion__item child" data-rubric="1" href="#"><b>Категория</b> что-то нашли</a>
+          </div>*@
       </div>
     </div>
   </div>

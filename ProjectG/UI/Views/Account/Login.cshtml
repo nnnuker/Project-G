@@ -1,14 +1,48 @@
 ﻿@using UI.Models
 @model LoginViewModel
 @{
-  ViewBag.Title = "Log in";
+  ViewBag.Title = Resources.Resource.LogInTitle;
 }
 
 <div class="content-wrapper js-content-wrapper content-wrapper_panel-top content-wrapper_rp-min">
   <div class="content-container">
     <div class="content">
       <div>
-
+        @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post,
+        new { @class = "form-horizontal", role = "form" }))
+        {
+          @Html.AntiForgeryToken()
+          @Html.ValidationSummary(true)
+          <div class="col-md-offset-2">
+            <h4 class="form-header">@Resources.Resource.LogInTitle</h4>
+          </div>
+          <hr />
+          <div class="form-group">
+            @Html.LabelFor(m => m.Email, Resources.Resource.EmailTitle, new { @class = "col-md-2 form__label" })
+            <div class="col-md-6">
+              @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+          </div>
+          <div class="form-group">
+            @Html.LabelFor(m => m.Password, Resources.Resource.PasswordTitle, new { @class = "col-md-2 form__label" })
+            <div class="col-md-6">
+              @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+              @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+          </div>
+          <div class="form-group">
+            @Html.LabelFor(m => m.RememberMe, Resources.Resource.RememberMeTitle, new { @class = "col-md-2 form__label" })
+            <div class="col-md-6">
+              @Html.CheckBoxFor(m => m.RememberMe, new { @class = "form-control" })
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+              <input type="submit" class="ui-button ui-corner-all ui-widget" value="@Resources.Resource.LogInTitle" />
+            </div>
+          </div>
+        }
       </div>
     </div>
   </div>

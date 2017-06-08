@@ -15,6 +15,11 @@
       removeItem: function (id)
       {
         return $http.delete("/Content/RemovePage/" + id);
+      },
+
+      searchItems: function (id)
+      {
+        return $http.get("/Content/Search/" + id);
       }
     };
   }]);

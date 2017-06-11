@@ -18,9 +18,12 @@
         <span class="rubric-list__count">{{cat.ChildCount}}</span>
         <span class="rubric-list__caret glyph glyphicon-chevron-right"></span>
       </a>
-      <a href="#" ng-if="!cat.HasChilds" ng-click="goToCategory(cat)">
-        <span class="rubric-list__icon glyph glyphicon-open-file"></span><span>{{cat.Name}}</span>
+      <a href="#" ng-if="!cat.HasChilds && !cat.IsPage" ng-click="goToCategory(cat)">
+        <span class="rubric-list__icon glyph glyphicon-folder-open"></span><span>{{cat.Name}}</span>
         <span class="rubric-list__count">{{cat.ChildCount}}</span>
+      </a>
+      <a ng-if="!cat.HasChilds && cat.IsPage" href="/Content/Index/{{cat.Page.SeoUrl}}">
+        <span class="rubric-list__icon glyph glyphicon-open-file"></span><span>{{cat.Page.Title}}</span>
       </a>
     </li>
   </ul>

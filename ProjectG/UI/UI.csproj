@@ -179,6 +179,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Infrastructure\Mappers\Mappers.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
@@ -207,21 +208,17 @@
     <Compile Include="Models\Categories\CategoryViewModel.cs" />
     <Compile Include="Models\PageViewModel.cs" />
     <Compile Include="Models\SearchViewModel.cs" />
+    <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Content Include="**\*.js" Exclude="obj\**\*.js;bin\**\*.js;precompiledOutput\**\*.js;" />
-    <Content Include="**\*.css" Exclude="obj\**\*.cs;bin\**\*.css;precompiledOutput\**\*.css;" />
+    <Content Include="**\*.css" Exclude="obj\**\*.css;bin\**\*.css;precompiledOutput\**\*.css;" />
+    <Content Include="Scripts\Services\RolesService.js" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Content\AddPage.cshtml" />
     <Content Include="Views\Content\Categories.cshtml" />
     <Content Include="Views\Content\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
-    <Content Include="Views\Manage\ChangePassword.cshtml" />
-    <Content Include="Views\Manage\Index.cshtml" />
-    <Content Include="Views\Manage\ManageLogins.cshtml" />
-    <Content Include="Views\Manage\SetPassword.cshtml" />
-    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_AdvancedSearchForm.cshtml" />
     <Content Include="Views\Shared\_ErrorPopup.cshtml" />
@@ -289,6 +286,10 @@
       <LastGenOutput>Resource.ru.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

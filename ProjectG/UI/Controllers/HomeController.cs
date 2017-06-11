@@ -2,12 +2,22 @@
 using System.Web.Mvc;
 using BLL.UI.SiteMap;
 using UI.Infrastructure.Filters;
+using BLL.UI.Robots;
 
 namespace UI.Controllers
 {
   [Culture]
   public class HomeController : Controller
   {
+    private readonly SiteMapBuilder _siteMapBuilder;
+    private readonly RobotsBuilder _robotsBuilder;
+
+    public HomeController(SiteMapBuilder siteMapBuilder, RobotsBuilder robotsBuilder)
+    {
+      _siteMapBuilder = siteMapBuilder;
+      _robotsBuilder = robotsBuilder;
+    }
+
     public ActionResult Index()
     {
       ViewBag.ReturnUrl = this.Url.Action("Index", "Home");
@@ -18,23 +28,16 @@ namespace UI.Controllers
     [Route("robots.txt", Name = "GetRobotsText"), OutputCache(Duration = 86400)]
     public ContentResult RobotsText()
     {
-      StringBuilder stringBuilder = new StringBuilder();
+      var result = _robotsBuilder.Build(this.Url.RouteUrl("sitemap", null, this.Request.Url.Scheme));
 
-      stringBuilder.AppendLine("user-agent: *");
-      stringBuilder.AppendLine("disallow:");
-      stringBuilder.AppendLine("allow:");
-      stringBuilder.Append("sitemap: ");
-      stringBuilder.AppendLine(this.Url.RouteUrl("sitemap", null, this.Request.Url.Scheme).TrimEnd('/'));
-
-      return this.Content(stringBuilder.ToString(), "text/plain", Encoding.UTF8);
+      return this.Content(result, "text/plain", Encoding.UTF8);
     }
 
     [Route("sitemap.xml", Name = "GetSitemapXml"), OutputCache(Duration = 86400)]
     public ContentResult SitemapXml()
     {
-      var sitemapBuilder = new SiteMapBuilder();
-      var sitemapNodes = sitemapBuilder.GetSitemapNodes(this.Url);
-      string xml = sitemapBuilder.GetSitemapDocument(sitemapNodes);
+      var sitemapNodes = _siteMapBuilder.GetSitemapNodes(this.Url);
+      string xml = _siteMapBuilder.GetSitemapDocument(sitemapNodes);
       return this.Content(xml, "text/xml", Encoding.UTF8);
     }
 

@@ -124,7 +124,7 @@
     <value>Project Graduate</value>
   </data>
   <data name="CategoriesLink" xml:space="preserve">
-    <value>Add categories</value>
+    <value>Change categories</value>
   </data>
   <data name="ConfirmPasswordTitle" xml:space="preserve">
     <value>Confirm password</value>
@@ -134,6 +134,12 @@
   </data>
   <data name="EmailTitle" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="FirstNameTitle" xml:space="preserve">
+    <value>First name</value>
+  </data>
+  <data name="LastNameTitle" xml:space="preserve">
+    <value>Last name</value>
   </data>
   <data name="LoaderText" xml:space="preserve">
     <value>Loading...</value>
@@ -150,6 +156,9 @@
   <data name="PasswordError" xml:space="preserve">
     <value>Incorrect password</value>
   </data>
+  <data name="PasswordsMatchError" xml:space="preserve">
+    <value>The password and confirmation password do not match</value>
+  </data>
   <data name="PasswordTitle" xml:space="preserve">
     <value>Password</value>
   </data>
@@ -164,5 +173,11 @@
   </data>
   <data name="RememberMeTitle" xml:space="preserve">
     <value>Remember me</value>
+  </data>
+  <data name="StringLengthError" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long</value>
+  </data>
+  <data name="UsersAdminTitle" xml:space="preserve">
+    <value>Change users</value>
   </data>
 </root>

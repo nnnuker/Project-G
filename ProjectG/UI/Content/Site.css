@@ -226,3 +226,7 @@ h6 {
   left: 0;
   z-index: 30;
 }
+
+.content-wrapper-advance {
+  padding: 20px;
+}

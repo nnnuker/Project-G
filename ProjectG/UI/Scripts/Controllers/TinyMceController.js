@@ -50,7 +50,7 @@
       let valid = true;
       allFields.removeClass("ui-state-error");
 
-      valid = valid && checkLength(seoUrl, "seoUrl", 3, 16);
+      valid = valid && checkLength(seoUrl, "seoUrl", 5, 100);
 
       if (valid) {
         sendData();

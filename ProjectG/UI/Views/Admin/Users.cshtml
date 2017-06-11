@@ -1,0 +1,97 @@
+﻿@using UI.Models
+@model UserViewModel
+
+@{
+  ViewBag.Title = "Users";
+}
+
+<div class="content-wrapper js-content-wrapper content-wrapper-advance" ng-controller="UsersController">
+  <div class="content-container">
+    <div class="content">
+      <div>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="newEmail" class="col-md-4 form__label" style="text-align:left">Email</label>
+              <input type="text" name="newEmail" value="" ng-model="newEmail" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="newFirstName" class="col-md-4 form__label" style="text-align:left">Имя</label>
+              <input type="text" name="newFirstName" value="" ng-model="newFirstName" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="newLastName" class="col-md-4 form__label" style="text-align:left">Фамилия</label>
+              <input type="text" name="newLastName" value="" ng-model="newLastName" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="newPassword" class="col-md-4 form__label" style="text-align:left">Пароль</label>
+              <input type="password" name="newPassword" value="" ng-model="newPassword" class="form-control" />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-4">
+              <label for="newRole" class="col-md-4 form__label" style="text-align:left">Роль</label>
+              <select style="z-index:102" id="newRole" name="newRole" ng-model="newRoleId">
+                <option ng-repeat="role in roles" value="{{role.Id}}">{{role.Name}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-offset-3 col-md-4">
+              <button type="button" class="ui-button ui-corner-all ui-widget" ng-click="addUser()">Создать</button>
+            </div>
+          </div>
+        </form>
+        <table class="table">
+          <tr>
+            <th>
+              @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.Password)
+            </th>
+            <th>
+              @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+          <tr ng-repeat="user in users">
+            <td>{{user.Id}}</td>
+            <td><input type="text" value="" ng-model="user.Email" /></td>
+            <td><input type="text" value="" ng-model="user.FirstName" /></td>
+            <td><input type="text" value="" ng-model="user.LastName" /></td>
+            <td><input type="text" value="" ng-model="user.Password" /></td>
+            <td>
+              <select id="select-{{user.Id}}" ng-model="user.RoleId" ng-options="role.Id as role.Name for role in roles">
+              </select>
+            </td>
+            <td>
+              <button type="button" class="ui-button ui-corner-all ui-widget" ng-click="updateUser($index, user)" id="updateButton-{{user.Id}}">Обновить</button>
+            </td>
+            <td>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-click="removeUser($index, user)" id="removeButton-{{user.Id}}">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

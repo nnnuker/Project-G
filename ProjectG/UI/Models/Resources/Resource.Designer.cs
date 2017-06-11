@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add categories.
+        ///   Looks up a localized string similar to Change categories.
         /// </summary>
         public static string CategoriesLink {
             get {
@@ -111,6 +111,24 @@ namespace Resources {
         public static string EmailTitle {
             get {
                 return ResourceManager.GetString("EmailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to First name.
+        /// </summary>
+        public static string FirstNameTitle {
+            get {
+                return ResourceManager.GetString("FirstNameTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last name.
+        /// </summary>
+        public static string LastNameTitle {
+            get {
+                return ResourceManager.GetString("LastNameTitle", resourceCulture);
             }
         }
         
@@ -160,6 +178,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The password and confirmation password do not match.
+        /// </summary>
+        public static string PasswordsMatchError {
+            get {
+                return ResourceManager.GetString("PasswordsMatchError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string PasswordTitle {
@@ -201,6 +228,24 @@ namespace Resources {
         public static string RememberMeTitle {
             get {
                 return ResourceManager.GetString("RememberMeTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The {0} must be at least {2} characters long.
+        /// </summary>
+        public static string StringLengthError {
+            get {
+                return ResourceManager.GetString("StringLengthError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change users.
+        /// </summary>
+        public static string UsersAdminTitle {
+            get {
+                return ResourceManager.GetString("UsersAdminTitle", resourceCulture);
             }
         }
     }

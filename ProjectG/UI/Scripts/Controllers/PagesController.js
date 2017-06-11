@@ -18,19 +18,19 @@
       searchedPages(data);
     });
 
-    //$scope.removePage = function (index, item)
-    //{
-    //  pagesService.removeItem(item.Id).then(function (response)
-    //  {
-    //    if (response && response.status === 200) {
-    //      $.notify("Deleted " + item.Id, { className: "success", globalPosition: "bottom right" });
-    //      $scope.pages.splice(index, 1);
-    //    }
-    //    else {
-    //      $.notify("Deletion error", { className: "error", globalPosition: "bottom right" });
-    //    }
-    //  });
-    //};
+    $scope.removePage = function (index, item)
+    {
+      pagesService.removeItem(item.Id).then(function (response)
+      {
+        if (response && response.status === 200) {
+          $.notify("Deleted " + item.Id, { className: "success", globalPosition: "bottom right" });
+          $scope.pages.splice(index, 1);
+        }
+        else {
+          $.notify("Deletion error", { className: "error", globalPosition: "bottom right" });
+        }
+      });
+    };
 
     $scope.pagesCountText = function ()
     {

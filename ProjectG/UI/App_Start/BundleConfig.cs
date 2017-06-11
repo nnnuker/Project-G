@@ -43,15 +43,18 @@ namespace UI
                 "~/Scripts/Controllers/CategoriesController.js",
                 "~/Scripts/Controllers/PagesController.js",
                 "~/Scripts/Controllers/NavigatorController.js",
+                "~/Scripts/Controllers/UsersController.js",
                 "~/Scripts/Services/AccountService.js",
                 "~/Scripts/Services/CategoriesService.js",
-                "~/Scripts/Services/PagesService.js"));
+                "~/Scripts/Services/PagesService.js",
+                "~/Scripts/Services/RolesService.js",
+                "~/Scripts/Services/UsersService.js"));
 
       bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/bootstrap.css",
                 "~/Content/Site.css",
                 "~/Content/main.css",
-                "~/Content/JQueryUI/south-street/jquery-ui.min.css",
+                "~/Content/JQueryUI/base/jquery-ui.min.css",
                 "~/Content/css/select2.min.css"));
     }
   }

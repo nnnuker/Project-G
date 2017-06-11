@@ -121,10 +121,10 @@
     <value>Добавить страницу</value>
   </data>
   <data name="ApplicationTitle" xml:space="preserve">
-    <value>Проект Г</value>
+    <value>Инфо портал</value>
   </data>
   <data name="CategoriesLink" xml:space="preserve">
-    <value>Добавить категорию</value>
+    <value>Изменить категории</value>
   </data>
   <data name="ConfirmPasswordTitle" xml:space="preserve">
     <value>Подвердите пароль</value>
@@ -134,6 +134,12 @@
   </data>
   <data name="EmailTitle" xml:space="preserve">
     <value>Адрес электронной почты</value>
+  </data>
+  <data name="FirstNameTitle" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="LastNameTitle" xml:space="preserve">
+    <value>Фамилия</value>
   </data>
   <data name="LoaderText" xml:space="preserve">
     <value>Загрузка...</value>
@@ -150,6 +156,9 @@
   <data name="PasswordError" xml:space="preserve">
     <value>Неверный пароль</value>
   </data>
+  <data name="PasswordsMatchError" xml:space="preserve">
+    <value>Пароли не совпадают</value>
+  </data>
   <data name="PasswordTitle" xml:space="preserve">
     <value>Пароль</value>
   </data>
@@ -164,5 +173,11 @@
   </data>
   <data name="RememberMeTitle" xml:space="preserve">
     <value>Запомнить меня</value>
+  </data>
+  <data name="StringLengthError" xml:space="preserve">
+    <value>Количество симвоов в поле {0} должно быть как минимум {2}</value>
+  </data>
+  <data name="UsersAdminTitle" xml:space="preserve">
+    <value>Изменение пользователей</value>
   </data>
 </root>

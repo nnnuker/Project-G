@@ -1,7 +1,9 @@
-﻿using BLL.UI.SiteMap.Helpers;
+﻿using BLL.UI.Services;
+using BLL.UI.SiteMap.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using System.Xml.Linq;
 
@@ -9,6 +11,13 @@ namespace BLL.UI.SiteMap
 {
   public class SiteMapBuilder
   {
+    private readonly PagesService _pagesService;
+
+    public SiteMapBuilder(PagesService pagesService)
+    {
+      _pagesService = pagesService;
+    }
+
     public IReadOnlyCollection<SitemapNode> GetSitemapNodes(UrlHelper urlHelper)
     {
       List<SitemapNode> nodes = new List<SitemapNode>();
@@ -19,6 +28,7 @@ namespace BLL.UI.SiteMap
             Url = urlHelper.AbsoluteRouteUrl("Default", new { controller = "Home", action = "Index"}),
             Priority = 1
           });
+
       nodes.Add(
          new SitemapNode()
          {
@@ -26,16 +36,14 @@ namespace BLL.UI.SiteMap
            Priority = 0.9
          });
 
-      //foreach (int productId in productRepository.GetProductIds())
-      //{
-      //  nodes.Add(
-      //     new SitemapNode()
-      //     {
-      //       Url = urlHelper.AbsoluteRouteUrl("ProductGetProduct", new { id = productId }),
-      //       Frequency = SitemapFrequency.Weekly,
-      //       Priority = 0.8
-      //     });
-      //}
+      var pages = _pagesService.GetAll().Select(p => new SitemapNode()
+      {
+        Url = urlHelper.AbsoluteRouteUrl("Default", new { controller = "Content", action = "Index", id = p.Url }),
+        Frequency = SitemapFrequency.Weekly,
+        Priority = 0.8
+      });
+
+      nodes.AddRange(pages);
 
       return nodes;
     }

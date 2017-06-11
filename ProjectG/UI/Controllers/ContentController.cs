@@ -52,6 +52,39 @@ namespace UI.Controllers
     [ValidateInput(false)]
     public ActionResult AddPage(PageViewModel model)
     {
+      if (!ModelState.IsValid)
+      {
+        return this.View(model);
+      }
+
+      var result = _pagesService.Get(model.Id);
+
+      if (result != null)
+      {
+        var seoEquals = _seoService.Get(model.Id)?.Name.Equals(model.SeoUrl);
+
+        var seoUrl = new BllSeo
+        {
+          Id = model.Id,
+          Name = model.SeoUrl
+        };
+
+        if (seoEquals.HasValue && !seoEquals.Value)
+        {
+          _seoService.Update(new BllSeo
+          {
+            Id = model.Id,
+            Name = model.SeoUrl
+          });
+        }
+
+        ViewBag.ReturnUrl = this.Url.RouteUrl("Default", new { action = "AddPage", controller = "Content", id = model.SeoUrl});
+        
+        _pagesService.Update(model.ToBll(seoUrl));
+
+        return this.View(model);
+      }
+
       if (_seoService.Get(model.SeoUrl) != null)
       {
         ModelState.AddModelError("SeoUrl", "Url is already defined");
@@ -94,8 +127,8 @@ namespace UI.Controllers
 
       if (delete != null)
       {
-        //_seoService.Delete(delete.UrlId);
         _pagesService.Delete(delete.Id);
+        _seoService.Delete(delete.UrlId);
 
         return this.RedirectToAction("Index", "Home");
       }

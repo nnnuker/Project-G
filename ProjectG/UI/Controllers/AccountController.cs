@@ -62,7 +62,7 @@ namespace UI.Controllers
           return View(model);
         }
 
-        var membershipUser = provider.CreateUser(model.Email, null, null, model.Password);
+        var membershipUser = provider.CreateUser(model.Email, model.FirstName, model.LastName, model.Password);
 
         if (membershipUser != null)
         {

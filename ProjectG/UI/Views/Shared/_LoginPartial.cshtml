@@ -21,6 +21,9 @@
             @Html.ActionLink(Resources.Resource.CategoriesLink, "Categories", "Content", null, new { @class = "auth__recover-pass" })
           </div>
           <div class="form-cell">
+            @Html.ActionLink(Resources.Resource.UsersAdminTitle, "Users", "Admin", null, new { @class = "auth__recover-pass" })
+          </div>
+          <div class="form-cell">
             <input type="submit" value="@Resources.Resource.LogOff" class="ctrl auth__submit">
           </div>
         }

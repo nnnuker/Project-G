@@ -26,9 +26,7 @@ namespace UI.Infrastructure.Providers
 
     public MembershipUser CreateUser(string email, string firstName, string lastName, string password)
     {
-      MembershipUser membershipUser = GetUser(email, false);
-
-      if (membershipUser != null)
+      if (GetUser(email, false) != null)
       {
         return null;
       }
@@ -48,8 +46,32 @@ namespace UI.Infrastructure.Providers
       }
 
       UserService.Create(user);
-      membershipUser = GetUser(email, false);
-      return membershipUser;
+      return GetUser(email, false);
+    }
+
+    public MembershipUser UpdateUser(BllUser userModel)
+    {
+      if (GetUser(userModel.Email, false) == null)
+      {
+        return null;
+      }
+
+      string password = userModel.Password != null ? Crypto.HashPassword(userModel.Password) : UserService.Get(userModel.Id).Password;
+
+      var user = new BllUser
+      {
+        Id = userModel.Id,
+        Email = userModel.Email,
+        FirstName = userModel.FirstName,
+        LastName = userModel.LastName,
+        Password = password
+      };
+
+      var role = RoleService.Get(userModel.Id);
+      user.RoleId = role != null ? role.Id : 1;
+
+      UserService.Update(user);
+      return GetUser(user.Email, false);
     }
 
     public override bool ValidateUser(string email, string password)

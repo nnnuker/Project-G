@@ -54,5 +54,31 @@ namespace UI.Infrastructure.Mappers
         SeoUrl = entity.Url
       };
     }
+
+    public static BllUser ToBll(this UserViewModel entity)
+    {
+      return new BllUser
+      {
+        Id = entity.Id,
+        Email = entity.Email,
+        FirstName = entity.FirstName,
+        LastName = entity.LastName,
+        Password = entity.Password,
+        RoleId = entity.RoleId
+      };
+    }
+
+    public static UserViewModel ToViewModel(this BllUser entity)
+    {
+      return new UserViewModel
+      {
+        Id = entity.Id,
+        Email = entity.Email,
+        FirstName = entity.FirstName,
+        LastName = entity.LastName,
+        Password = entity.Password,
+        RoleId = entity.RoleId
+      };
+    }
   }
 }

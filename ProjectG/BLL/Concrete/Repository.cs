@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using System.Threading;
 
 namespace BLL.Concrete
 {
   public class Repository<TEntity> where TEntity : class, new()
   {
     private readonly DbContext _context;
+    private static readonly ReaderWriterLockSlim _lockSlim = new ReaderWriterLockSlim();
 
     public Repository(DbContext context)
     {
@@ -16,59 +18,111 @@ namespace BLL.Concrete
 
     public IEnumerable<TEntity> GetAll()
     {
-      return _context.Set<TEntity>();
+      _lockSlim.EnterReadLock();
+      try
+      {
+        return _context.Set<TEntity>();
+      }
+      finally
+      {
+        _lockSlim.ExitReadLock();
+      }
     }
 
     public TEntity Get(int id)
     {
       if (id < 0) throw new ArgumentOutOfRangeException(nameof(id));
 
-      var result = _context.Set<TEntity>().Find(id);
-
-      return result;
+      _lockSlim.EnterWriteLock();
+      try
+      {
+        return _context.Set<TEntity>().Find(id);
+      }
+      finally
+      {
+        _lockSlim.ExitWriteLock();
+      }   
     }
 
     public DbSet<TEntity> GetEntitySet()
     {
-      return _context.Set<TEntity>();
+      _lockSlim.EnterWriteLock();
+      try
+      {
+        return _context.Set<TEntity>();
+      }
+      finally
+      {
+        _lockSlim.ExitWriteLock();
+      }
     }
 
     public TEntity Create(TEntity entity)
     {
       if (entity == null)
+      {
         throw new ArgumentNullException(nameof(entity));
+      }
 
-      var c = _context.Set<TEntity>().Add(entity);
+      _lockSlim.EnterWriteLock();
+      try
+      {
+        var c = _context.Set<TEntity>().Add(entity);
+        
+        _context.SaveChanges();
 
-      var errors = _context.GetValidationErrors();
-
-      _context.SaveChanges();
-
-      return c;
+        return c;
+      }
+      finally
+      {
+        _lockSlim.ExitWriteLock();
+      }
     }
 
     public void Update(TEntity entity)
     {
-      if (entity == null) throw new ArgumentNullException(nameof(entity));
+      if (entity == null)
+      {
+        throw new ArgumentNullException(nameof(entity));
+      }
 
-      _context.Set<TEntity>().AddOrUpdate(entity);
+      _lockSlim.EnterWriteLock();
+      try
+      {
+        _context.Set<TEntity>().AddOrUpdate(entity);
 
-      _context.SaveChanges();
+        _context.SaveChanges();
+      }
+      finally
+      {
+        _lockSlim.ExitWriteLock();
+      }
     }
 
     public void Delete(int id)
     {
-      if (id <= 0) throw new ArgumentOutOfRangeException(nameof(id));
-
-      var result = _context.Set<TEntity>().Find(id);
-      if (result == null)
+      if (id <= 0)
       {
-        return;
-      }        
+        throw new ArgumentOutOfRangeException(nameof(id));
+      }
 
-      _context.Set<TEntity>().Remove(result);
+      _lockSlim.EnterWriteLock();
+      try
+      {
+        var result = _context.Set<TEntity>().Find(id);
+        if (result == null)
+        {
+          return;
+        }
 
-      _context.SaveChanges();
+        _context.Set<TEntity>().Remove(result);
+
+        _context.SaveChanges();
+      }
+      finally
+      {
+        _lockSlim.ExitWriteLock();
+      }
     }
   }
 }

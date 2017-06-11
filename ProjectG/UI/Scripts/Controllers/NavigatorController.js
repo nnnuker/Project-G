@@ -1,9 +1,10 @@
 ﻿angular.module("GApp")
-  .controller("NavigatorController", ["$scope", "CategoriesService", function ($scope, categoriesService)
+  .controller("NavigatorController", ["$scope", "CategoriesService", "PagesService", function ($scope, categoriesService, pagesService)
   {
     $scope.categories = [];
     $scope.breadCrumbs = [];
     $scope.letterLimit = 17;
+    $scope.pages = [];
 
     $scope.changedCategory = function (item)
     {
@@ -47,6 +48,8 @@
             $scope.categories.push(obj);
           }
         }
+
+        pagesService.getByCategoryId(item.Id).then(setPages);        
       });
     };
 
@@ -59,8 +62,33 @@
         Name: "Категории",
         HasChilds: true,
         ParentId: 1,
-        ChildCount: "All"
+        ChildCount: "All",
+        IsPage: false
       });
+    }
+
+    function setPages(response)
+    {
+      $scope.pages = [];
+
+      if (response.data.length !== 0)
+      {
+        for (var i = 0; i < response.data.length; i++)
+        {
+          var obj = castPage(response.data[i]);
+          $scope.pages.push(obj);
+
+          $scope.categories.push({
+            Id: obj.Id,
+            ParentId: 0,
+            Name: obj.Title,
+            HasChilds: false,
+            ChildCount: 0,
+            IsPage: true,
+            Page: obj
+          });
+        }
+      }
     }
 
     function addBreadCrumb(item)
@@ -91,7 +119,26 @@
         ParentId: item.ParentId,
         Name: item.Name,
         HasChilds: item.HasChilds,
-        ChildCount: item.ChildCount
+        ChildCount: item.ChildCount,
+        IsPage: false,
+        Page: null
+      };
+    }
+
+    function castDate(date)
+    {
+      var re = /-?\d+/;
+      var m = re.exec(date);
+      return new Date(parseInt(m[0]));
+    }
+
+    function castPage(item)
+    {
+      return {
+        Id: item.Id,
+        SeoUrl: item.SeoUrl,
+        Date: castDate(item.Date).toDateString(),
+        Title: item.Title
       };
     }
   }
